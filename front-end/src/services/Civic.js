@@ -36,6 +36,15 @@ export default class Civic {
         const response = await Api.post('login', {
             accountName,
             pubKey
+        }).catch(e =>  {
+            switch (e.response.status) {
+                case 500:
+                    throw('User not found')
+                case 400:
+                    throw('Password is incorrect')
+                default:
+                    throw(e.response.message)
+            }
         })
 
         this.account = {
