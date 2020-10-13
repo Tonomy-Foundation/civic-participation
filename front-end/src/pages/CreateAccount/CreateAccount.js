@@ -43,17 +43,17 @@ export default function CreateAccount() {
 		criteriaMode: "all"
 	});
 
-	const onSubmit = async data => {
+	const onSubmit = async ({username, password, firstname, lastname}) => {
 		setLoading(true)
 
-		const [_, err] = await authContext.accountCreate(data)
-
-		if (err) {
-			setMessage(err)
+		try {
+			await authContext.civic.accountCreate(username, password, `${firstname} ${lastname}`)
+			authContext.setIsLoggedIn(true)
+			history.push('/dashboard')
+		} catch (err) {
+			setMessage(err.message)
 			setOpen(true);
 			setLoading(false)
-		} else {
-			history.push('/dashboard')
 		}
 	};
 

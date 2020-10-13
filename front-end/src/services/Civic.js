@@ -33,31 +33,41 @@ export default class Civic {
         const privKey = ecc.seedPrivate(crypto.createHash("sha256").update(accountName + password).digest("hex"))
         const pubKey = ecc.privateToPublic(privKey)
 
-        const response = await Api.post('login', {
-            accountName,
-            pubKey
-        }).catch(e =>  {
-            switch (e.response.status) {
-                case 500:
-                    throw('User not found')
-                case 400:
-                    throw('Password is incorrect')
-                default:
-                    throw(e.response.message)
+        try {
+            const response = await Api.post('login', {
+                accountName,
+                pubKey
+            })
+
+            this.account = {
+                accountName: accountName,
+                commonName: response.data.commonName,
+                privateKey: privKey
             }
-        })
 
-        this.account = {
-            accountName: accountName,
-            commonName: response.data.commonName,
-            privateKey: privKey
+            this.accountability.login({ accountName, permission: 'active', privKey })
+            await this.civicContract.initializeContract()
+
+            return parseAccountRes(response.data);
+        } catch (err) {
+            let error
+
+            if (err.response.data.includes('unknown key')) {
+                error = new Error('User not found')
+                error.status = 400
+                throw(error)
+            }
+
+            if (err.response.data.includes('Public keys do not match')) {
+                error = new Error('Password is incorrect')
+                error.status = 401
+                throw(error)
+            }
+
+            throw(err)
         }
+    }
 
-        this.accountability.login({ accountName, permission: 'active', privKey })
-        await this.civicContract.initializeContract()
-
-        return parseAccountRes(response.data);
-    };
 
     /** 
      * Create account with the common name provided

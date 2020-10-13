@@ -44,17 +44,17 @@ export default function Login() {
 		criteriaMode: "all"
 	});
 
-	const onSubmit = async data => {
+	const onSubmit = async ({username, password}) => {
 		setLoading(true)
 
-		const [_, err] = await authContext.accountLogin(data)
-
-		if (err) {
-			setMessage(err)
+		try {
+			await authContext.civic.accountLogin(username, password)
+			authContext.setIsLoggedIn(true)
+			history.push('/dashboard')
+		} catch (err) {
+			setMessage(err.message)
 			setOpen(true);
 			setLoading(false)
-		} else {
-			history.push('/dashboard')
 		}
 	};
 

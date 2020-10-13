@@ -9,39 +9,18 @@ function useProvideAuth() {
 
     let civic = new Civic(); 
 
-    const accountLogin = async ({username, password}) => {
-        try{
-            const loginData = await civic.accountLogin(username, password)
-            setIsLoggedIn(true)
-            return [loginData, null]
-        } catch (error) {
-            return [null, error]
-        }
-    };
-
-    const accountCreate = async ({username, password, firstname, lastname}) => {
-        try{
-            const accountData = await civic.accountCreate(username, password, `${firstname} ${lastname}`)
-            return [accountData, null]
-        } catch (error) {
-            return [null, error]
-        }
-    };
-
-
     return {
-        accountCreate,
-        accountLogin,
+        civic,
         isLoggedIn,
         setIsLoggedIn
     };
 }
 
 export function ProvideAuth({ children }) {
-    const organization = useProvideAuth();
+    const authProvider = useProvideAuth();
 
     return (
-    <authContext.Provider value={organization}>
+    <authContext.Provider value={authProvider}>
         {children}
     </authContext.Provider>
     );
