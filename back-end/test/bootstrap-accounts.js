@@ -35,6 +35,7 @@ async function main() {
     // Create some new orgs
     await createNewOrg("gov", "The Ministry of The Hague", ["hidde", "tijn", "yvo"], 0.66);
     await createNewOrg("civic", "Civic Participation Tool", ["gov"], 1);
+    await createNewOrg('dfuseiohooks', "System event indexer", ["gov"], 1);
 
     // Update the system contract to be controlled by the government
     await updateEosioAuth();
@@ -45,6 +46,14 @@ async function main() {
         permission: 'active'
     });
     await deployCivicContract();
+
+    // Set the abi of dfuseiohooks event handler account
+    await accountability.login({
+        privKey: keyFromName('yvo', 'Password123').privKey,
+        name: 'dfuseiohooks',
+        permission: 'active'
+    });
+    await deployDfuseiohooks();
 
     console.log("fin")
     process.exit(0)
@@ -69,6 +78,11 @@ async function deploySystemContract() {
 async function deployCivicContract() {
     await accountability.deploy("civic", "../contracts/civic");
     console.log("civic contract deployed");
+}
+
+async function deployDfuseiohooks() {
+    await accountability.setabi("dfuseiohooks", "../contracts/dfuseiohooks");
+    console.log("dfuseiohooks abi set");
 }
 
 async function updateEosioAuth() {

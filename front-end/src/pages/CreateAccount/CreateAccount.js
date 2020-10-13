@@ -1,6 +1,5 @@
 import React from 'react';
 import { ConsumeAuth } from '../../hooks/authContext'
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -101,11 +100,6 @@ export default function CreateAccount() {
 		}
 	})(Typography);
 
-	const CircularProgressComponent = withStyles({
-		root: {
-			color: '#fff'
-		}
-	})(CircularProgress);
 
 	return (
 		<>

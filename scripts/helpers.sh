@@ -94,7 +94,7 @@ function logs {
         tail -f -n 20 "${PARENT_PATH}/back-end/node.log"
     elif [ "${SERVICE}" == "dfuse" ]; then
         docker-compose logs -f dfuse
-    elif [ "${SERVICE}" == "dfuse" ]; then
+    elif [ "${SERVICE}" == "mongo" ]; then
         docker-compose logs -f mongo
     else
         printlogs

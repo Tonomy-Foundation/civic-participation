@@ -71,12 +71,6 @@ export default class Accountability {
 
 
     /**
-    * Returns data from the current blockchain state
-    */
-    // use this.dfuseClient.stateTable()
-
-
-    /**
      * Searches the transaction history
      * Extended response type also includes the human account name and common name that signed the tx
      * @returns {SearchTransactionsResponseExtended}

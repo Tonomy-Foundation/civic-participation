@@ -203,7 +203,6 @@ export default class Civic {
         if (proposal.budget) { proposalDetailed.budget = proposal.budget }
         if (proposal.photos) { proposalDetailed.photos = proposal.photos }
         if (proposal.regulations) { proposalDetailed.regulations = proposal.regulations }
-        if (proposal.comment) { proposalDetailed.comment = proposal.comment }
 
         return proposalDetailed;
     }
@@ -241,7 +240,6 @@ export default class Civic {
             status: x.json.status,
             photos: x.json.photos,
             regulations: x.json.regulations,
-            comment: x.json.comment,
             created: Accountability.timePointToDate(x.json.approved),
             approved: Accountability.timePointToDate(x.json.approved),
             updated: Accountability.timePointToDate(x.json.updated),
@@ -251,12 +249,8 @@ export default class Civic {
 
         // sort by created date
         response.sort((a, b) => {
-            if (a.created > b.created) {
-                return 1;
-            }
-            if (a.created < b.created) {
-                return -1;
-            }
+            if (a.created > b.created) { return 1; }
+            if (a.created < b.created) { return -1; }
             return 0;
         })
 
@@ -268,14 +262,72 @@ export default class Civic {
      * @param {number} proposalId
      * @returns {ProposalDetailed}
      */
-    async proposalGet(proposalId) { }
+    async proposalGet(proposalId) {
+        const proposalsQuery = await this.civicContract.proposalsRow(this.civicContract.contractAccount, proposalId, 'uint64')
+
+        const proposal = proposalsQuery.row.json
+
+        return {
+            proposalId: proposal.proposal_id,
+            title: proposal.title,
+            description: proposal.description,
+            category: proposal.category,
+            budget: proposal.budget,
+            type: proposal.type,
+            location: proposal.location,
+            status: proposal.status,
+            photos: proposal.photos,
+            regulations: proposal.regulations,
+            created: Accountability.timePointToDate(proposal.approved),
+            approved: Accountability.timePointToDate(proposal.approved),
+            updated: Accountability.timePointToDate(proposal.updated),
+            voted: proposal.voted,
+            yesVoteCount: proposal.yes_vote_count,
+        }
+    }
 
     /** 
      * Returns a proposals history of who has done what actions
      * @param {number} proposalId
-     * @returns {ProposalHistory}
+     * @returns {ProposalHistory[]}
      */
-    async proposalHistory(proposalId) { }
+    async proposalHistory(proposalId) {
+        let q = `receiver:${this.civicContract.contractAccount} event.proposal_id:${proposalId}`
+        const proposalQuery = await this.accountability.dfuseClient.searchTransactions(q);
+        const proposalTxs = proposalQuery.transactions;
+
+        const proposalsActions = [];
+
+        if (proposalTxs && proposalTxs.length > 0) {
+            for (let tx of proposalTxs) {
+                const data = tx.lifecycle;
+                const actionData = data.execution_trace.action_traces[0].act;
+
+                // TODO needs to handle txs with multiple signatures and authorities (also in BE)
+                const proposalData = {
+                    txId: data.id,
+                    action: actionData.name,
+                    timestamp: Accountability.timePointToDate(data.execution_trace.block_time),
+                    authHuman: data.account_authorizers[0],
+                    authHumanCommonName: data.account_authorizers_common_names[0],
+                    data: actionData.data,
+                    status: mapActionToStatus(actionData.name)
+                }
+                if (actionData.name === "propupdate") proposalData.status = actionData.data.new_status;
+                if (actionData.data.comment) proposalData.comment = actionData.data.comment;
+
+                proposalsActions.push(proposalData);
+            }
+        }
+
+        proposalsActions.sort((a, b) => {
+            if (a.timestamp > b.timestamp) { return 1; }
+            if (a.timestamp < b.timestamp) { return -1; }
+            return 0;
+        })
+
+        return proposalsActions;
+    }
 }
 
 function parseAccountRes(data) {
@@ -291,4 +343,15 @@ function parseAccountRes(data) {
         val.lastContractUpdate = Accountability.timePointToDate(data.last_code_update);
     }
     return val;
+}
+
+function mapActionToStatus(actionName) {
+    switch (actionName) {
+        case "propcreate":
+            return ProposalStatus.Proposed;
+        case "propupdate":
+            return ProposalStatus.Reviewing;
+        default:
+            throw new Error("Invalid action name");
+    }
 }

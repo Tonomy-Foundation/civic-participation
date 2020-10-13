@@ -44,7 +44,6 @@ const TitleLargeTextTypography = withStyles({
         color: '#FAFFFB',
         fontWeight: 500,
         fontSize: '72px',
-        fontWeight: 500,
     }
 })(Typography);
 

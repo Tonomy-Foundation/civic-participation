@@ -55,6 +55,9 @@ export default class Contract {
             c[name] = async function (scope) {
                 return await this.eosio.dfuseClient.stateTable(contractAccount, scope, name);
             }
+            c[name + 'Row'] = async function (scope, primaryKey, keyType) {
+                return await this.eosio.dfuseClient.stateTableRow(contractAccount, scope, name, primaryKey, { keyType })
+            }
         }
     }
 }

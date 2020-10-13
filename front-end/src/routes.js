@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import CreateAccount from './pages/CreateAccount/CreateAccount';
 import Security from './pages/Security/Security';
+import PropsalCreate from './pages/ProposalCreate/ProposalCreate';
 
 const Routes = () => (
     <Router >
@@ -19,6 +20,9 @@ const Routes = () => (
             </Route>
             <Route path="/security">
                 <Security />
+            </Route>
+            <Route path="/proposal-create">
+                <PropsalCreate />
             </Route>
         </Switch>
     </Router >

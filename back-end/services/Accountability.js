@@ -194,6 +194,58 @@ class Accountability {
         }
     }
 
+    async setabi(contractAccount, contractDir, options) {
+        const { wasmPath, abiPath } = getDeployableFilesFromDir(contractDir)
+
+        const wasm = fs.readFileSync(wasmPath).toString(`hex`);
+        const buffer = new Serialize.SerialBuffer({
+            textEncoder: this.api.textEncoder,
+            textDecoder: this.api.textDecoder,
+        })
+
+        let abi = JSON.parse(fs.readFileSync(abiPath, `utf8`))
+        const abiDefinition = this.api.abiTypes.get(`abi_def`)
+        abi = abiDefinition.fields.reduce((acc, { name: fieldName }) =>
+            Object.assign(acc, {
+                [fieldName]: acc[fieldName] || []
+            }),
+            abi
+        )
+        abiDefinition.serialize(buffer, abi)
+
+        try {
+            const tx = await this.api.transact({
+                actions: [{
+                    account: "eosio",
+                    name: "setabi",
+                    authorization: [{
+                        actor: this.account.name,
+                        permission: this.account.permission,
+                    }],
+                    data: {
+                        account: contractAccount,
+                        abi: Buffer.from(buffer.asUint8Array()).toString(`hex`)
+                    },
+                }]
+            }, {
+                blocksBehind: 3,
+                expireSeconds: 30,
+            })
+            if (options) {
+                if (tx.processed.error_code) throw Error("Failed with error code: " + tx.processed.error_code);
+                if (options.status && tx.processed.receipt.status !== options.status) throw Error("Tx status is " + tx.processed.receipt.status);
+            }
+
+            await wait(1000)
+            return tx;
+        } catch (e) {
+            console.log('\nCaught exception: ' + e);
+            if (e instanceof RpcError)
+                console.error(JSON.stringify(e.json, null, 2));
+            else
+                throw Error(e);
+        }
+    }
 }
 
 function getDeployableFilesFromDir(dir) {
