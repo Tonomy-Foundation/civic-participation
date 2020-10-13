@@ -9,24 +9,29 @@ function useProvideAuth() {
 
     let civic = new Civic(); 
 
-    const login = async ({username, password}) => {
+    const accountLogin = async ({username, password}) => {
         try{
-            await civic.accountLogin(username, password)
-        } catch (e) {
-            return {
-                success: false,
-                message: e
-            }
+            const loginData = await civic.accountLogin(username, password)
+            setIsLoggedIn(true)
+            return [loginData, null]
+        } catch (error) {
+            return [null, error]
         }
+    };
 
-        return {
-            success: true
+    const accountCreate = async ({username, password, firstname, lastname}) => {
+        try{
+            const accountData = await civic.accountCreate(username, password, `${firstname} ${lastname}`)
+            return [accountData, null]
+        } catch (error) {
+            return [null, error]
         }
     };
 
 
     return {
-        login,
+        accountCreate,
+        accountLogin,
         isLoggedIn,
         setIsLoggedIn
     };

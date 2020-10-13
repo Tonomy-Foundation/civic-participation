@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConsumeAuth } from '../../hooks/authContext'
-import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -40,20 +40,21 @@ export default function Login() {
 		setOpen(false);
 	};
 
-	const { register, errors, handleSubmit, setError } = useForm({
+	const { register, errors, handleSubmit } = useForm({
 		criteriaMode: "all"
 	});
 
 	const onSubmit = async data => {
 		setLoading(true)
-		const login = await authContext.login(data)
 
-		if (login.success) {
-			history.push('/dashboard')
-		} else {
-			setMessage(login.message)
+		const [_, err] = await authContext.accountLogin(data)
+
+		if (err) {
+			setMessage(err)
 			setOpen(true);
 			setLoading(false)
+		} else {
+			history.push('/dashboard')
 		}
 	};
 
