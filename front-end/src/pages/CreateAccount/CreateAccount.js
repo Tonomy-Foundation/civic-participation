@@ -13,6 +13,7 @@ import { AccountCircle, Lock } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import ButtonComponent from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import PasswordInput from '../../components/PasswordInput';
 import {
@@ -71,21 +72,6 @@ export default function CreateAccount() {
 			color: '#1261A3',
 		}
 	})(Typography);
-
-	const CreateButton = withStyles({
-		root: {
-			backgroundColor: '#1261A3',
-			borderRadius: 3,
-			border: 0,
-			color: 'white',
-			height: 36,
-			padding: '0 30px',
-			marginLeft: '10px'
-		},
-		label: {
-			textTransform: 'capitalize',
-		},
-	})(Button);
 
 	const CreateLock = withStyles({
 		root: {
@@ -275,9 +261,7 @@ export default function CreateAccount() {
 									</div>
 								</HtmlTooltip>
 								<Grid item className="create-button">
-									<CreateButton disabled={loading} type="submit" >
-										{loading ? <CircularProgressComponent size={14} className="circular-progress" /> : 'Create'}
-									</CreateButton>
+									<ButtonComponent loading={loading} type="submit" text="Create" backgroundColor='#1261A3' />
 								</Grid>
 							</Grid>
 						</form>

@@ -13,6 +13,7 @@ import { AccountCircle, Lock } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import ButtonComponent from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import PasswordInput from '../../components/PasswordInput';
 import {
@@ -31,7 +32,6 @@ export default function Login() {
 	const [loading, setLoading] = React.useState(false)
 	const [open, setOpen] = React.useState(false);
 	const [message, setMessage] = React.useState(null);
-
 
 	const handleClose = (_, reason) => {
 		if (reason === 'clickaway') {
@@ -61,22 +61,6 @@ export default function Login() {
 	const navigateCreatePage = () => {
 		history.push("/")
 	}
-
-	const LoginButton = withStyles({
-		root: {
-			backgroundColor: '#227B3C',
-			borderRadius: 3,
-			border: 0,
-			color: 'white',
-			height: 36,
-			width: 100,
-			padding: '0 30px',
-			marginLeft: '10px'
-		},
-		label: {
-			textTransform: 'capitalize',
-		},
-	})(Button);
 
 	const GreenSmallTypography = withStyles({
 		root: {
@@ -235,9 +219,7 @@ export default function Login() {
 									</div>
 								</HtmlTooltip>
 								<Grid item className="login-button">
-									<LoginButton disabled={loading} type="submit">
-										{loading ? <CircularProgressComponent size={14} className="circular-progress" /> : 'LOGIN'}
-									</LoginButton>
+									<ButtonComponent loading={loading} type="submit" text="LOGIN" />
 								</Grid>
 							</Grid>
 						</form>
