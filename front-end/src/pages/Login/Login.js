@@ -43,12 +43,11 @@ export default function Login() {
 		criteriaMode: "all"
 	});
 
-	const onSubmit = async ({username, password}) => {
+	const onSubmit = async ({ username, password }) => {
 		setLoading(true)
 
 		try {
-			await authContext.civic.accountLogin(username, password)
-			authContext.setIsLoggedIn(true)
+			await authContext.login(username, password);
 			history.push('/dashboard')
 		} catch (err) {
 			setMessage(err.message)
@@ -112,14 +111,14 @@ export default function Login() {
 				onClose={handleClose}
 				message={message}
 				action={
-				<React.Fragment>
-					<Button color="secondary" size="small" onClick={handleClose}>
-						UNDO
+					<React.Fragment>
+						<Button color="secondary" size="small" onClick={handleClose}>
+							UNDO
 					</Button>
-					<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-					<CloseIcon fontSize="small" />
-					</IconButton>
-				</React.Fragment>
+						<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+							<CloseIcon fontSize="small" />
+						</IconButton>
+					</React.Fragment>
 				}
 			/>
 

@@ -43,12 +43,11 @@ export default function CreateAccount() {
 		criteriaMode: "all"
 	});
 
-	const onSubmit = async ({username, password, firstname, lastname}) => {
+	const onSubmit = async ({ username, password, firstname, lastname }) => {
 		setLoading(true)
 
 		try {
-			await authContext.civic.accountCreate(username, password, `${firstname} ${lastname}`)
-			authContext.setIsLoggedIn(true)
+			await authContext.createAccount(username, password, `${firstname} ${lastname}`)
 			history.push('/dashboard')
 		} catch (err) {
 			setMessage(err.message)
@@ -113,14 +112,14 @@ export default function CreateAccount() {
 				onClose={handleClose}
 				message={message}
 				action={
-				<React.Fragment>
-					<Button color="secondary" size="small" onClick={handleClose}>
-						UNDO
+					<React.Fragment>
+						<Button color="secondary" size="small" onClick={handleClose}>
+							UNDO
 					</Button>
-					<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-					<CloseIcon fontSize="small" />
-					</IconButton>
-				</React.Fragment>
+						<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+							<CloseIcon fontSize="small" />
+						</IconButton>
+					</React.Fragment>
 				}
 			/>
 			<Grid container spacing={0} direction="row">
