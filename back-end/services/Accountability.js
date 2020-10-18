@@ -75,8 +75,7 @@ class Accountability {
      * @response {AccountExtended}
      */
     async getAccount(accountName) {
-        const account = await this.rpc.get_account(accountName)
-        return account
+        return await this.rpc.get_account(accountName);
     }
 
     /** 

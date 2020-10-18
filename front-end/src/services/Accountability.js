@@ -3,6 +3,7 @@ import { Api, JsonRpc, RpcError } from 'eosjs';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
 import ecc from 'eosjs-ecc';
 import { copyObj } from './objects';
+import { setInterceptors } from './DfuseRequestHooks';
 
 import settings from '../settings';
 
@@ -58,7 +59,9 @@ export default class Accountability {
         let accountCopy = copyObj(account);
 
         const signatureProvider = new JsSignatureProvider([accountCopy.privKey]);
-        accountCopy.pubKey = ecc.privateToPublic(accountCopy.privKey);
+        accountCopy.pubKey = ecc.privateToPublic(accountCopy.privKey, "");
+
+        setInterceptors(account.accountName, account.permission, account.privKey, accountCopy.pubKey);
 
         delete accountCopy.privKey;
         this.account = accountCopy;
@@ -147,5 +150,4 @@ export default class Accountability {
     static timePointToDate(timePoint) {
         return new Date(timePoint + 'Z')
     }
-
 }

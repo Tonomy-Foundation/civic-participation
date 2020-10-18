@@ -1,9 +1,16 @@
 const Accountability = require('../../services/Accountability');
 const accountability = new Accountability();
 const accountController = require('../../controllers/accounts.controller');
+const { getAuthorizor } = require('../../services/auth');
 
 /* GET acounts listing. */
 module.exports = async function(req, res) {
+    try {
+        await getAuthorizor(req);
+    } catch (err) {
+        return res.status(401).send(err.message);
+    }
+
     const transactionRes = req.blockchainRes;
 
     let newTransactionSet = [];
