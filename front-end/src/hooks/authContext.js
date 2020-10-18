@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext } from 'react';
 import PropTypes from 'prop-types';
 import Civic from '../services/Civic';
-import { getUserStorage, setUserStorage } from './storage';
+import { getUserStorage, setUserStorage, clearUserStorage } from './storage';
 
 let civic = new Civic();
 const authContext = createContext();
@@ -11,6 +11,7 @@ function useProvideAuth() {
 
     const user = getUserStorage();
     if (user) {
+        // TODO next line should use await
         civic.accountLoginWithKey(user.accountName, user.commonName, user.privKey)
         setIsLoggedIn(true);
     }

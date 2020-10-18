@@ -29,9 +29,9 @@ export default class Civic {
      * @param {string} accountName - username
      * @param {string} privKey - private key
      */
-    accountLoginWithKey(accountName, commonName, privKey) {
-        this.accountability.login({ accountName, permission: 'active', privKey })
-        await this.civicContract.initializeContract()
+    async accountLoginWithKey(accountName, commonName, privKey) {
+        this.accountability.login({ accountName, permission: 'active', privKey });
+        await this.civicContract.initializeContract();
 
         this.account = {
             accountName: accountName,
