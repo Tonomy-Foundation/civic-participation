@@ -22,6 +22,24 @@ export default class Civic {
         this.civicContract = new Contract('civic', this.accountability);
     }
 
+
+    /** 
+     * Login to account using private key
+     * Initializes the civicContract
+     * @param {string} accountName - username
+     * @param {string} privKey - private key
+     */
+    accountLoginWithKey(accountName, commonName, privKey) {
+        this.accountability.login({ accountName, permission: 'active', privKey })
+        await this.civicContract.initializeContract()
+
+        this.account = {
+            accountName: accountName,
+            commonName: commonName,
+            privateKey: privKey
+        }
+    }
+
     /** 
      * Login to account
      * Initializes the civicContract
@@ -39,14 +57,14 @@ export default class Civic {
                 pubKey
             })
 
+            this.accountability.login({ accountName, permission: 'active', privKey })
+            await this.civicContract.initializeContract()
+
             this.account = {
                 accountName: accountName,
                 commonName: response.data.commonName,
                 privateKey: privKey
             }
-
-            this.accountability.login({ accountName, permission: 'active', privKey })
-            await this.civicContract.initializeContract()
 
             return parseAccountRes(response.data);
         } catch (err) {
@@ -55,16 +73,16 @@ export default class Civic {
             if (err.response.data.includes('unknown key')) {
                 error = new Error('User not found')
                 error.status = 400
-                throw(error)
+                throw (error)
             }
 
             if (err.response.data.includes('Public keys do not match')) {
                 error = new Error('Password is incorrect')
                 error.status = 401
-                throw(error)
+                throw (error)
             }
 
-            throw(err)
+            throw (err)
         }
     }
 
@@ -87,14 +105,14 @@ export default class Civic {
             pubKey
         })
 
+        await this.accountability.login({ accountName, permission: 'active', privKey })
+        await this.civicContract.initializeContract()
+
         this.account = {
             accountName: accountName,
             commonName: response.data.commonName,
             privateKey: privKey
         }
-
-        await this.accountability.login({ accountName, permission: 'active', privKey })
-        await this.civicContract.initializeContract()
 
         return parseAccountRes(response.data);
     };

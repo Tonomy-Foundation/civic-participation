@@ -1,8 +1,9 @@
 
-function setUserStorage(accountName, privateKey) {
+function setUserStorage(accountName, commonName, privKey) {
     const user = {
         accountName,
-        privateKey
+        commonName,
+        privKey
     }
     localStorage.setItem('user', JSON.stringify(user));
 }
