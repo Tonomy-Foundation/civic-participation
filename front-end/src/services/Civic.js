@@ -27,6 +27,7 @@ export default class Civic {
      * Login to account using private key
      * Initializes the civicContract
      * @param {string} accountName - username
+     * @param {string} commonName - common name e.g. 'Jack Tanner'
      * @param {string} privKey - private key
      */
     async accountLoginWithKey(accountName, commonName, privKey) {

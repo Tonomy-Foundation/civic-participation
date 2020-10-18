@@ -1,6 +1,7 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
 import Civic from '../services/Civic';
+import settings from '../settings';
 import { getUserStorage, setUserStorage, clearUserStorage } from './storage';
 
 let civic = new Civic();
@@ -9,12 +10,22 @@ const authContext = createContext();
 function useProvideAuth() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const user = getUserStorage();
-    if (user) {
-        // TODO next line should use await
-        civic.accountLoginWithKey(user.accountName, user.commonName, user.privKey)
-        setIsLoggedIn(true);
-    }
+    useEffect(() => {
+        async function main() {
+            const user = getUserStorage();
+            if (user) {
+                await civic.accountLoginWithKey(user.accountName, user.commonName, user.privKey)
+                setIsLoggedIn(true);
+            } else {
+                if (!settings.isLiveEnvironment()) {
+                    await civic.accountLogin('tijn', 'Password123');
+                    setUserStorage('tijn', civic.account.commonName, civic.account.privateKey);
+                    setIsLoggedIn(true);
+                }
+            }
+        }
+        main();
+    }, [])
 
     async function login(accountName, password) {
         await civic.accountLogin(accountName, password);
