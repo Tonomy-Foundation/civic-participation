@@ -26,6 +26,7 @@ function Home() {
                 photos: [],
                 location: createLocation()
             }
+            
 
             const proposalData = await civic.proposalCreate(proposal);
             console.log('proposalCreate()', proposalData)

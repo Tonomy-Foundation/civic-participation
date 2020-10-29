@@ -1,22 +1,31 @@
-import React, { useState } from 'react'
-import { Grid, Typography, Checkbox, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import background from '../../assets/image/heading.png';
-import { Stars } from '@material-ui/icons';
+import React, { useState } from "react";
+import { ConsumeAuth } from '../../hooks/authContext'
+import { ProposalCategory } from '../../types/civic';
+
+import {
+    Grid,
+    Typography,
+    Radio,
+    TextField,
+    Button,
+    RadioGroup,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import background from "../../assets/image/heading.png";
+import { Stars } from "@material-ui/icons";
 import { withStyles } from "@material-ui/core/styles";
-import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Select from '@material-ui/core/Select';
-import { DropzoneArea } from 'material-ui-dropzone'
-import { Lock } from '@material-ui/icons';
-import LocationGooglMap from '../../components/Location/LocationGooglMap';
+import CurrencyTextField from "@unicef/material-ui-currency-textfield";
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Select from "@material-ui/core/Select";
+import { DropzoneArea } from "material-ui-dropzone";
+import { Lock } from "@material-ui/icons";
+import LocationGoogleMaps from "../../components/Location/LocationGoogleMaps";
 // import DragDrop from '../../components/DragDrop';
-import { useForm } from "react-hook-form";
-import Navbar from '../../components/Navbar/Navbar';
-import './ProposalCreate.scss';
+import { useForm, Controller } from "react-hook-form";
+import "./ProposalCreate.scss";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
         "&::placeholder": {
             color: "#599C6D",
             fontSize: 14,
-            opacity: 1
+            opacity: 1,
         },
-        textAlign: "left"
+        textAlign: "left",
     },
     formControl: {
         margin: theme.spacing(1),
@@ -37,14 +46,14 @@ const useStyles = makeStyles((theme) => ({
     inputLabel: {
         color: "#599C6D",
         "&.Mui-focused": {
-            color: "#599C6D"
-        }
+            color: "#599C6D",
+        },
     },
     budgetInputStyle: {
-        paddingTop: '23px'
+        paddingTop: "23px",
     },
     categoryTitle: {
-        paddingTop: '10px'
+        paddingTop: "10px",
     },
     margin: {
         margin: theme.spacing(5),
@@ -52,248 +61,208 @@ const useStyles = makeStyles((theme) => ({
     commonText: {
         marginLeft: "20px",
         "& .MuiInputBase-input": {
-            paddingBottom: '5px'
+            paddingBottom: "5px",
         },
         "& label.Mui-focused": {
-            color: '#ffffff',
-            fontSize: '18px'
+            color: "#ffffff",
+            fontSize: "18px",
         },
         "& .MuiInputBase-root.MuiInput-underline:after": {
-            borderBottomColor: '#ffffff',
+            borderBottomColor: "#ffffff",
         },
         "& .MuiInput-underline:before": {
-            borderBottom: "none"
+            borderBottom: "none",
         },
         "& label + .MuiInput-formControl": {
-            marginTop: '10px',
+            marginTop: "10px",
         },
         "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-            borderBottom: "none"
+            borderBottom: "none",
         },
         "& .makeStyles-inputLabel-118": {
             color: "#ffffff",
-            fontSize: "25px"
-        }
+            fontSize: "25px",
+        },
     },
     inputTitle: {
         color: "white",
         width: "300px",
         fontSize: "32px",
-        disableUnderline: true
+        disableUnderline: true,
     },
     inputLabelTitle: {
         color: "white",
         fontSize: "25px",
-    }
+    },
 }));
 
-const HearderCustomizeStar = withStyles({
+const HeaderCustomizeStar = withStyles({
     root: {
-        color: '#FFFFFF',
-        width: '28px',
-        height: '28px',
-        marginBottom: '6px'
-    }
-})(Stars)
+        color: "#FFFFFF",
+        width: "28px",
+        height: "28px",
+        marginBottom: "6px",
+    },
+})(Stars);
 
 const TitleCategoryTypography = withStyles({
     root: {
-        color: '#599C6D',
+        color: "#599C6D",
         fontWeight: 500,
-        fontSize: '15px',
-    }
+        fontSize: "15px",
+    },
 })(Typography);
 
 const ImageDragTypography = withStyles({
     root: {
-        color: '#599C6D',
+        color: "#599C6D",
         fontWeight: 400,
-        fontSize: '12px',
-        lineHeight: '14.06px',
-        marginBottom: '10px'
-    }
+        fontSize: "12px",
+        lineHeight: "14.06px",
+        marginBottom: "10px",
+    },
 })(Typography);
 
-const CategoryCheckbox = withStyles({
+const CategoryRadio = withStyles({
     root: {
-        color: '#599C6D',
-        fontSize: '14px',
-        '&$checked': {
-            color: '#599C6D',
+        color: "#599C6D",
+        fontSize: "14px",
+        "&$checked": {
+            color: "#599C6D",
         },
     },
     checked: {},
-})((props) => <Checkbox color="default" {...props} />);
+})((props) => <Radio color="default" {...props} />);
 
 const UploadButton = withStyles({
     root: {
-        backgroundColor: '#1261A3',
+        backgroundColor: "#1261A3",
         borderRadius: 3,
         border: 0,
-        color: 'white',
+        color: "white",
         height: 36,
-        padding: '0 20px',
-        marginLeft: '10px'
+        padding: "0 20px",
+        marginLeft: "10px",
     },
     label: {
-        textTransform: 'capitalize',
-        fontSize: '14px',
-        fontWeight: '500'
+        textTransform: "capitalize",
+        fontSize: "14px",
+        fontWeight: "500",
     },
 })(Button);
 
 const UploadSmallTypographyCreate = withStyles({
     root: {
-        fontSize: '15px',
-        color: '#1261A3',
-    }
+        fontSize: "15px",
+        color: "#1261A3",
+    },
 })(Typography);
 
 const UploadLock = withStyles({
     root: {
-        color: '#1261A3'
-    }
+        color: "#1261A3",
+    },
 })(Lock);
 
 export default function ProposalCreate() {
+    const authContext = ConsumeAuth()
     const classes = useStyles();
 
-    const [stateCheckBox, setStateCheckBox] = useState({
-        checkedA: false,
-        checkedB: false,
-        checkedC: false,
-        checkedD: false,
-        checkedE: false,
-        checkedF: false,
-        checkedG: false,
-        checkedH: false,
-    });
-
-    const [valueBudget, setValueBudget] = useState();
-
-    const [state, setState] = useState({
-        type: '',
-    });
-
-    const [description, setDescription] = useState({
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl Lorem ipsum dolor sit amet, consectetur adipisicing rl Lorem ipsum Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl Lorem ipsum dolor sit ame"
-    });
-
-    const [files, setFiles] = useState([])
-
-    const [hasErrorType, setHasError] = useState(false)
-
-    const [hasErrorCateory, setHasErrorCategory] = useState(false)
-
-    const [hasErrorDescription, setHasErrorDescription] = useState(false)
-
-    const [hasErrorTitle, setHasErrorTitle] = useState(false)
-
-    const [title, setTitle] = useState("")
+    const [files, setFiles] = useState([]);
+    const [fileError, setFileError] = useState(false);
 
     const handleDropDownImage = (files) => {
-        setFiles(files)
-    }
+        setFileError(false);
+        setFiles(files);
+    };
 
-    const { errors, handleSubmit } = useForm({
-        criteriaMode: "all"
+    const {
+        errors,
+        handleSubmit,
+        register,
+        control,
+        setValue,
+        clearErrors,
+        watch,
+    } = useForm({
+        criteriaMode: "all",
+        defaultValues: {
+            category: null,
+            budget: null,
+        },
     });
 
-    const onSubmit = data => {
-        // Title validation
-        if (title == "") {
-            setHasErrorTitle(true);
-        } else {
-            setHasErrorTitle(false)
-        }
-        // Type validation
-        if (state.type == "") {
-            setHasError(true);
-        } else {
-            setHasError(false)
-        }
-        // Categories validation
-        for (const [key, value] of Object.entries(stateCheckBox)) {
-            if (value == true) {
-                setHasErrorCategory(false)
-                break;
-            } else {
-                setHasErrorCategory(true)
-            }
-        }
-        // Description validation
-        if (description.content.length >= 100 && description.content.length <= 580) {
-            setHasErrorDescription(false)
-        } else {
-            setHasErrorDescription(true)
+    const onSubmit = async (data) => {
+        if (files.length === 0) {
+            setFileError(true);
+            return;
         }
 
+        console.log(authContext)
+        console.log(authContext.civic)
+
+        console.log({
+            ...data,
+            category: +data.category,
+            location: "52.1135031,4.2829047",
+            photos: files
+        })
+
+        const create = await authContext.civic.proposalCreate({
+            ...data,
+            category: +data.category,
+            budget: 0,
+            location: "52.1135031,4.2829047",
+            photos: files
+        })
+
+        console.log(create)
     };
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        if (event.target.value == "") {
-            setHasError(true)
-        } else {
-            setHasError(false)
-        }
-        setState({
-            ...state,
-            [name]: event.target.value,
-        });
-    };
 
-    const handleChangeCheckboxs = (event) => {
-        if (event.target.checked) {
-            setHasErrorCategory(false);
-        } else {
-            setHasErrorCategory(true)
-        }
-        setStateCheckBox({ ...stateCheckBox, [event.target.name]: event.target.checked });
-    };
+    // const proposal = {
+    //     title: 'Build a flowerbed next to John\'s tacos',
+    //     description: description,
+    //     category: ProposalCategory.Green,
+    //     budget: 0,
+    //     type: ProposalType.Create,
+    //     photos: [],
+    //     location: createLocation()
+    // }
+
+    // const proposalData = await civic.proposalCreate(proposal);
+
 
     const CHARACTER_LIMIT = 580;
 
-    const handleChangeDescription = content => event => {
-        if (event.target.value.length >= 100 && event.target.value.length <= 580) {
-            setHasErrorDescription(false)
-        } else {
-            setHasErrorDescription(true)
-        }
-        setDescription({ ...description, [content]: event.target.value });
-    };
-
-    const handleChangeTitle = (e) => {
-        if (e.target.value == "") {
-            setHasErrorTitle(true)
-        } else {
-            setHasErrorTitle(false)
-        }
-        setTitle(e.target.value)
-    }
-
     return (
         <div className={classes.root}>
-            <Navbar />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column">
                     <Grid className="hearder-wrap">
                         <img src={background} className="hearder-img" />
-                        <Grid container direction="row" className="hearder-title" alignItems="center">
-                            <HearderCustomizeStar />
+                        <Grid
+                            container
+                            direction="row"
+                            className="hearder-title"
+                            alignItems="center"
+                        >
+                            <HeaderCustomizeStar />
                             <TextField
                                 label="Name your idea"
-                                className={classes.margin, classes.commonText}
+                                name="title"
+                                className={(classes.margin, classes.commonText)}
                                 InputProps={{
-                                    className: classes.inputTitle
+                                    className: classes.inputTitle,
                                 }}
                                 InputLabelProps={{
                                     className: classes.inputLabelTitle,
                                 }}
-                                value={title}
-                                onChange={handleChangeTitle}
+                                inputRef={register({
+                                    required: "Please enter a name",
+                                })}
+                                error={errors.title !== undefined}
                             />
-                            {hasErrorTitle && <FormHelperText>Please select a title.</FormHelperText>}
                         </Grid>
                     </Grid>
                     <div className="main-container">
@@ -301,127 +270,210 @@ export default function ProposalCreate() {
                             <Grid item xs={7} className="left-wrap">
                                 <Grid container item xs={12} spacing={4}>
                                     <Grid item>
-                                        <CurrencyTextField
-                                            value={valueBudget}
+                                        <Controller
+                                            as={<CurrencyTextField />}
+                                            name="budget"
                                             currencySymbol="€"
                                             outputFormat="string"
                                             decimalCharacter="."
                                             digitGroupSeparator=","
                                             placeholder="Budget"
-                                            onChange={(event, value) => setValueBudget(value)}
                                             InputProps={{
                                                 classes: {
-                                                    input: classes.input
-                                                }
+                                                    input: classes.input,
+                                                },
                                             }}
                                             className={classes.budgetInputStyle}
+                                            error={errors.budget !== undefined}
+                                            control={control}
+                                            ref={register}
+                                            key="budget"
+                                            rules={{ required: true }}
+                                            value={null}
                                         />
                                     </Grid>
-                                    <Grid item className="type-wrape">
-                                        <FormControl className={classes.formControl}>
-                                            <InputLabel htmlFor="type-select" className={classes.inputLabel}>Type</InputLabel>
+                                    <Grid item className="type-wrap">
+                                        <FormControl
+                                            className={classes.formControl}
+                                        >
+                                            <InputLabel
+                                                htmlFor="type-select"
+                                                className={classes.inputLabel}
+                                            >
+                                                Type
+                                            </InputLabel>
                                             <Select
                                                 native
-                                                value={state.type}
-                                                onChange={handleChange}
                                                 inputProps={{
-                                                    name: 'type',
-                                                    id: 'type-select',
+                                                    name: "type",
+                                                    id: "type-select",
                                                 }}
                                                 errors={errors}
+                                                name="type"
+                                                inputRef={register({
+                                                    required:
+                                                        "Please enter a name",
+                                                })}
                                             >
-                                                <option aria-label="" value="" />
+                                                <option
+                                                    aria-label=""
+                                                    value=""
+                                                />
                                                 <option value="new">New</option>
-                                                <option value="upgrade">Upgrade</option>
-                                                <option value="remove">Remove</option>
+                                                <option value="upgrade">
+                                                    Upgrade
+                                                </option>
+                                                <option value="remove">
+                                                    Remove
+                                                </option>
                                             </Select>
-                                            {hasErrorType && <FormHelperText>Please select a type.</FormHelperText>}
+                                            {errors.type && (
+                                                <FormHelperText>
+                                                    Please select a type.
+                                                </FormHelperText>
+                                            )}
                                         </FormControl>
                                     </Grid>
                                 </Grid>
-                                <Grid container item xs={12} spacing={3} className="catergory-wrape">
+                                <Grid
+                                    container
+                                    item
+                                    xs={12}
+                                    spacing={3}
+                                    className="category-wrap"
+                                >
                                     <Grid item>
-                                        <TitleCategoryTypography className={classes.categoryTitle}>Categories</TitleCategoryTypography>
+                                        <TitleCategoryTypography
+                                            className={classes.categoryTitle}
+                                        >
+                                            Categories
+                                        </TitleCategoryTypography>
                                     </Grid>
-                                    <Grid item sm container className="category-checkbox-wrape">
-                                        <Grid item xs={12}>
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedA}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedA" />
-                                                }
-                                                label="Green space"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedB}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedB" />
-                                                }
-                                                label="Kids"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedC}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedC" />
-                                                }
-                                                label="Safety"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedD}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedD" />
-                                                }
-                                                label="Accessibility"
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedE}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedE" />
-                                                }
-                                                label="Art"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedF}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedF" />
-                                                }
-                                                label="Health"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedG}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedG" />
-                                                }
-                                                label="Roads"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <CategoryCheckbox
-                                                        checked={stateCheckBox.checkedH}
-                                                        onChange={handleChangeCheckboxs}
-                                                        name="checkedH" />
-                                                }
-                                                label="Residential"
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12} className="checkbox-helper">
-                                            {hasErrorCateory && <FormHelperText>Please select a type.</FormHelperText>}
+
+                                    <Grid
+                                        item
+                                        sm
+                                        container
+                                        className="category-checkbox-wrap"
+                                    >
+                                        <Controller
+                                            render={(props) => (
+                                                <RadioGroup
+                                                    {...props}
+                                                    defaultValue="Green space"
+                                                    aria-label="category"
+                                                    value={+watch("category")}
+                                                    onChange={(e) => {
+                                                        clearErrors([
+                                                            "category",
+                                                        ]);
+                                                        setValue(
+                                                            "category",
+                                                            e.target.value
+                                                        );
+                                                    }}
+                                                >
+                                                    <Grid item xs={12}>
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            label="Green space"
+                                                            value={ProposalCategory.Green}
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            label="Kids"
+                                                            value={ProposalCategory.Kids}
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            value={ProposalCategory.Safety}
+                                                            label="Safety"
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            value={ProposalCategory.Accessibility}
+                                                            label="Accessibility"
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            value={ProposalCategory.Art}
+                                                            label="Art"
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            value={ProposalCategory.Health}
+                                                            label="Health"
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            value={ProposalCategory.Road}
+                                                            label="Roads"
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                                <CategoryRadio />
+                                                            }
+                                                            value={ProposalCategory.Residential}
+                                                            label="Residential"
+                                                            defaultChecked={
+                                                                false
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                </RadioGroup>
+                                            )}
+                                            rules={{ required: true }}
+                                            name="category"
+                                            control={control}
+                                        />
+
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            className="checkbox-helper"
+                                        >
+                                            {errors.category !== undefined && (
+                                                <FormHelperText>
+                                                    Please select a category.
+                                                </FormHelperText>
+                                            )}
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={11}>
@@ -430,44 +482,61 @@ export default function ProposalCreate() {
                                             inputProps={{
                                                 maxLength: CHARACTER_LIMIT,
                                             }}
-                                            value={description.content}
-                                            helperText={`${description.content.length}/${CHARACTER_LIMIT}`}
-                                            onChange={handleChangeDescription("content")}
                                             margin="normal"
                                             multiline
                                             rows={10}
                                             fullWidth
+                                            name="description"
+                                            inputRef={register({
+                                                required:
+                                                    "Please enter a description",
+                                            })}
+                                            helperText={`Please describe your proposal and how it will impact the neighborhood (${
+                                                watch("description")?.length ||
+                                                0
+                                            }/${CHARACTER_LIMIT})`}
+                                            className="description-textarea"
+                                            error={
+                                                errors.description !== undefined
+                                            }
                                         />
                                     </Grid>
-                                    <Grid item xs={12} className="description-helper">
-                                        {hasErrorDescription && <FormHelperText>Description must be at min 100 to 580 characters. </FormHelperText>}
-                                    </Grid>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        className="description-helper"
+                                    ></Grid>
                                 </Grid>
                             </Grid>
                             <Grid item className="right-wrap" xs={5}>
                                 <Grid item xs={12}>
-                                    <ImageDragTypography>Images</ImageDragTypography>
+                                    <ImageDragTypography>
+                                        Images
+                                    </ImageDragTypography>
                                     <DropzoneArea
+                                        acceptedFiles={["image/*"]}
                                         dropzoneText="drag files here or click to upload"
-                                        onChange={() => handleDropDownImage(files)}
+                                        onChange={(files) =>
+                                            handleDropDownImage(files)
+                                        }
                                         filesLimit={1}
-                                        // showPreviewsInDropzone={true}
                                     />
-                                    {/* <DragDrop /> */}
-
+                                    {fileError && (
+                                        <FormHelperText>
+                                            Image is missing.
+                                        </FormHelperText>
+                                    )}
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <div className="googlmap-wrape">
-                                        <LocationGooglMap location={{lat: 52.1135031, lng: 4.2829047}} zoom={15} />
+                                    <div className="googlmap-wrap">
+                                        <LocationGoogleMaps location={{lat: 52.1135031, lng: 4.2829047}} zoom={15} />
                                     </div>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid className="upload-button">
-                            <UploadButton type="submit" >
-                                UPLOAD
-                            </UploadButton>
-                            <div className="encrypt-wrape">
+                            <UploadButton type="submit">UPLOAD</UploadButton>
+                            <div className="encrypt-wrap">
                                 <Grid item>
                                     <UploadSmallTypographyCreate>
                                         encrypted
@@ -482,5 +551,5 @@ export default function ProposalCreate() {
                 </Grid>
             </form>
         </div>
-    )
+    );
 }

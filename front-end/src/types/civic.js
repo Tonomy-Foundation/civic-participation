@@ -1,7 +1,12 @@
 export const ProposalCategory = {
     Green: 0,
     Kids: 1,
-    Road: 2
+    Road: 2,
+    Accessibility: 3,
+    Art: 4,
+    Safety: 5,
+    Health: 6,
+    Residential: 7
 }
 
 export const ProposalType = {

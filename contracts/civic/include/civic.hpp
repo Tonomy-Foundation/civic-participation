@@ -33,7 +33,12 @@ private:
   {
     Green,
     Kids,
-    Road
+    Road,
+    Accessibility,
+    Art,
+    Safety,
+    Health,
+    Residential
   };
 
   enum ProposalType
