@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 
 import { ConsumeAuth } from '../../hooks/authContext'
-import { ProposalCategory } from '../../types/civic';
+import { ProposalCategory, ProposalType } from '../../types/civic';
 
 import {
     Grid,
@@ -211,20 +211,6 @@ export default function ProposalCreate() {
         history.push('/dashboard')
     };
 
-
-    // const proposal = {
-    //     title: 'Build a flowerbed next to John\'s tacos',
-    //     description: description,
-    //     category: ProposalCategory.Green,
-    //     budget: 0,
-    //     type: ProposalType.Create,
-    //     photos: [],
-    //     location: createLocation()
-    // }
-
-    // const proposalData = await civic.proposalCreate(proposal);
-
-
     const CHARACTER_LIMIT = 580;
 
     return (
@@ -311,11 +297,11 @@ export default function ProposalCreate() {
                                                     aria-label=""
                                                     value=""
                                                 />
-                                                <option value="1">New</option>
-                                                <option value="2">
+                                                <option value={ProposalType.Create}>New</option>
+                                                <option value={ProposalType.Update}>
                                                     Upgrade
                                                 </option>
-                                                <option value="3">
+                                                <option value={ProposalType.Remove}>
                                                     Remove
                                                 </option>
                                             </Select>
