@@ -49,6 +49,13 @@ class LocationGooglMap extends Component {
             lat: value.lat,
             lng: value.lng
         });
+
+        if (this.props.handleChange) {
+            this.props.handleChange({
+                lat: value.lat,
+                lng: value.lng
+            })
+        }
     }
 
     apiHasLoaded = (map, maps) => {
@@ -132,8 +139,8 @@ class LocationGooglMap extends Component {
                 >
                     <Marker
                         text={this.state.address}
-                        lat={this.props.location.lat}
-                        lng={this.props.location.lng}
+                        lat={this.state.lat}
+                        lng={this.state.lng}
                     />
                 </GoogleMapReact>
             </ >

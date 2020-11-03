@@ -171,6 +171,11 @@ export default function ProposalCreate() {
 
     const [files, setFiles] = useState([]);
     const [fileError, setFileError] = useState(false);
+    const [location, setLocation] = useState({lat: 52.1135031, lng: 4.2829047});
+
+    const handleChangeLocation = async (location) => {
+        setLocation(location)
+    }
 
     const handleDropDownImage = (files) => {
         setFileError(false);
@@ -188,7 +193,7 @@ export default function ProposalCreate() {
     } = useForm({
         criteriaMode: "all",
         defaultValues: {
-            category: null,
+            category: ProposalCategory.Green,
             budget: null,
         },
     });
@@ -202,7 +207,7 @@ export default function ProposalCreate() {
         const create = await authContext.civic.proposalCreate({
             ...data,
             category: +data.category,
-            location: "52.1135031,4.2829047",
+            location: `${location.lat},${location.lng}`,
             photos: files
         })
 
@@ -346,7 +351,7 @@ export default function ProposalCreate() {
                                             render={(props) => (
                                                 <RadioGroup
                                                     {...props}
-                                                    defaultValue="Green space"
+                                                    defaultValue={ProposalCategory.Green}
                                                     aria-label="category"
                                                     value={+watch("category")}
                                                     onChange={(e) => {
@@ -515,7 +520,7 @@ export default function ProposalCreate() {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <div className="googlmap-wrap">
-                                        <LocationGoogleMaps location={{lat: 52.1135031, lng: 4.2829047}} zoom={15} />
+                                        <LocationGoogleMaps handleChange={handleChangeLocation} location={location} zoom={15} />
                                     </div>
                                 </Grid>
                             </Grid>
