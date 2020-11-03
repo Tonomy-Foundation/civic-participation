@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+
 import { ConsumeAuth } from '../../hooks/authContext'
 import { ProposalCategory } from '../../types/civic';
 
@@ -23,8 +26,6 @@ import Select from "@material-ui/core/Select";
 import { DropzoneArea } from "material-ui-dropzone";
 import { Lock } from "@material-ui/icons";
 import LocationGoogleMaps from "../../components/Location/LocationGoogleMaps";
-// import DragDrop from '../../components/DragDrop';
-import { useForm, Controller } from "react-hook-form";
 import "./ProposalCreate.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -167,6 +168,7 @@ const UploadLock = withStyles({
 export default function ProposalCreate() {
     const authContext = ConsumeAuth()
     const classes = useStyles();
+	const history = useHistory();
 
     const [files, setFiles] = useState([]);
     const [fileError, setFileError] = useState(false);
@@ -198,25 +200,15 @@ export default function ProposalCreate() {
             return;
         }
 
-        console.log(authContext)
-        console.log(authContext.civic)
-
-        console.log({
-            ...data,
-            category: +data.category,
-            location: "52.1135031,4.2829047",
-            photos: files
-        })
-
         const create = await authContext.civic.proposalCreate({
             ...data,
             category: +data.category,
-            budget: 0,
+            type: +data.type,
             location: "52.1135031,4.2829047",
             photos: files
         })
 
-        console.log(create)
+        history.push('/dashboard')
     };
 
 
@@ -319,11 +311,11 @@ export default function ProposalCreate() {
                                                     aria-label=""
                                                     value=""
                                                 />
-                                                <option value="new">New</option>
-                                                <option value="upgrade">
+                                                <option value="1">New</option>
+                                                <option value="2">
                                                     Upgrade
                                                 </option>
-                                                <option value="remove">
+                                                <option value="3">
                                                     Remove
                                                 </option>
                                             </Select>
