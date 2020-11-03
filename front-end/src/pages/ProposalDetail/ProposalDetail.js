@@ -6,7 +6,7 @@ import { Stars, ExpandMore, ExpandLess } from '@material-ui/icons';
 import { withStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import LocationGooglMap from '../../components/Location/LocationGooglMap';
+import LocationGoogleMaps from '../../components/Location/LocationGoogleMaps';
 import Navbar from '../../components/Navbar/Navbar';
 import Timeline from './Timeline';
 import CategoryItem from './CategoryItem';
@@ -351,7 +351,7 @@ export default function ProposalDetail() {
                         </Grid>
                         <Grid item xs={12}>
                             <div className="googlmap-wrape">
-                                <LocationGooglMap location={proposal.location} zoom={15} editable={false} />
+                                <LocationGoogleMaps location={proposal.location} zoom={15} editable={false} />
                             </div>
                         </Grid>
                         <Grid item xs={12} container className="government-wraper">

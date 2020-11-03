@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import LocationGooglMap from '../../components/Location/LocationGooglMap';
+import LocationGoogleMaps from '../../components/Location/LocationGoogleMaps';
 import { useForm } from "react-hook-form";
 import Navbar from '../../components/Navbar/Navbar';
 import CheckBox from './CheckBox';
@@ -450,7 +450,7 @@ export default function ProposalDetail() {
                         </Grid>
                         <Grid item xs={12}>
                             <div className="googlmap-wrape">
-                                <LocationGooglMap location={{ lat: 52.1135031, lng: 4.2829047 }} zoom={15} />
+                                <LocationGoogleMaps location={{ lat: 52.1135031, lng: 4.2829047 }} zoom={15} />
                             </div>
                         </Grid>
                         <Grid item xs={12} container className="government-wraper" alignItems="center">
