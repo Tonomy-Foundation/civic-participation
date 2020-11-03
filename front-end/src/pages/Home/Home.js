@@ -72,8 +72,8 @@ function Home() {
 }
 
 function createLocation() {
-    const lng = 52.1135031 + Math.random() * 0.01;
-    const lat = 4.2829047 + Math.random() * 0.01;
+    const lng = 52.1117363 + Math.random() * 0.01;
+    const lat = 4.282188 + Math.random() * 0.01;
     return `${lng},${lat}`;
 }
 

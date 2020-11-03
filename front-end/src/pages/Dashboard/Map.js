@@ -17,7 +17,7 @@ const MapContainer = (props) => {
         if (selected && selected.proposalId) {
             setCurrentPosition(selected.position);
         }
-    })
+    }, [selected])
 
     return (
         <LoadScript

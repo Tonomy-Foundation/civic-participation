@@ -31,7 +31,7 @@ module.exports = async function(req, res, next) {
 
     const blockchainAccount = await accountability.getAccount(accountName);
 
-    const accountExtendedObject = { ...blockchainAccount, commonName: commonName, type: AccountType.Human }
+    const accountExtendedObject = {...blockchainAccount, commonName: commonName, type: AccountType.Human, isGov: false }
 
     res.send(accountExtendedObject);
 }

@@ -1,0 +1,261 @@
+@import "../../assets/css/colors";
+.hearder-wraper-proposal {
+    width: 100%;
+    height: 30vh;
+    .hearder-img {
+        width: 100%;
+        height: 100%;
+    }
+    position: relative;
+    .hearder-title {
+        position: absolute;
+        bottom: 0px;
+        align-items: flex-end;
+        border-radius: 35px 35px 0 0;
+        width: 550px;
+        justify-content: center;
+        padding-bottom: 4px;
+        background: $green;
+        margin-left: 243px;
+    }
+    .input-container+p+p {
+        margin: 0;
+        color: $red;
+        position: absolute;
+        left: 100px;
+        top: 53px;
+    }
+    .MuiFormHelperText-root {
+        position: absolute;
+        top: 63px;
+        left: 150px;
+        color: $red;
+    }
+}
+
+.main-container-proposal {
+    width: 756px;
+    margin: 23px auto;
+    position: relative;
+    margin-top: 56px;
+    .button-wraper {
+        margin-top: 10px;
+        .encrypt-wrape {
+            margin-top: 18px;
+            text-align: center;
+            display: flex;
+            justify-content: flex-end;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .MuiButton-root:hover {
+            text-decoration: none;
+            background-color: $dodgerBlue;
+            margin-left: 10px;
+            box-shadow: 0px 1px 2px 1px $pinkSwan;
+        }
+    }
+    .item-wraper {
+        margin-top: 106px;
+    }
+    .MuiTypography-colorTextSecondary {
+        position: absolute;
+        right: 0;
+    }
+    .MuiTypography-colorTextSecondary {
+        color: $green;
+    }
+    .MuiInput-underline:after {
+        border-bottom: 2px solid $green;
+    }
+    .MuiInput-underline::before {
+        border-bottom: 2px solid $green;
+    }
+    .MuiInputAdornment-positionStart {
+        margin-right: 0px;
+    }
+    .type-wrape {
+        margin-top: 30px;
+        .MuiFormControl-root {
+            position: relative;
+            padding-bottom: 20px;
+            margin-left: 0;
+            width: '80%';
+        }
+        .MuiFormHelperText-root {
+            text-align: left;
+            position: absolute;
+            bottom: 0;
+        }
+        .MuiSelect-select:not([multiple]) option,
+        .MuiSelect-select:not([multiple]) optgroup {
+            display: none;
+        }
+    }
+    .category-wraper {
+        margin-top: 30px;
+    }
+    .description-wraper {
+        margin-top: 90px;
+        .MuiFormControl-fullWidth {
+            label.Mui-focused {
+                color: $green;
+            }
+            label.MuiFormLabel-root {
+                color: $green;
+            }
+            textarea {
+                color: $black;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 24px;
+            }
+            .MuiFormHelperText-root {
+                color: $lightGrey;
+            }
+        }
+        .description-helper {
+            margin-top: -35px;
+            P {
+                text-align: left;
+            }
+        }
+    }
+    .MuiFormHelperText-root {
+        text-align: right;
+        color: $red;
+    }
+    .MuiDropzoneArea-root {
+        min-height: 157px;
+        max-height: 244px;
+        border: none;
+        background: $green;
+        position: relative;
+        outline: none;
+        .MuiDropzonePreviewList-root {
+            position: absolute;
+            top: 0;
+            justify-content: center;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            .MuiDropzonePreviewList-imageContainer {
+                padding: 0;
+                position: absolute;
+                max-width: 100%;
+                .MuiDropzonePreviewList-image {
+                    height: 156px;
+                    width: 100%;
+                    min-width: 200px;
+                    max-width: 412px;
+                }
+                .MuiDropzonePreviewList-removeButton {
+                    top: 2px;
+                    right: 2px;
+                }
+            }
+        }
+        &:hover {
+            border: 1px solid $green;
+        }
+        .MuiDropzoneArea-textContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+            p {
+                font-size: 12px;
+                color: $customWhite;
+            }
+            .MuiDropzoneArea-icon {
+                width: 24px;
+                height: 16px;
+                color: $white;
+            }
+        }
+    }
+    .googlmap-wrape {
+        height: 330px;
+        width: 100%;
+        margin-top: 89px;
+        .search-wrap {
+            position: relative;
+            .search-input {
+                border: none;
+                border-bottom: 1px solid $green;
+                width: 39%;
+                margin-bottom: 20px;
+                outline: none;
+                padding-right: 20px;
+            }
+             ::placeholder {
+                color: $green;
+                opacity: 1;
+            }
+             :-ms-input-placeholder {
+                color: $green;
+            }
+             ::-ms-input-placeholder {
+                color: $green;
+            }
+            .search-icon {
+                position: absolute;
+                left: 297px;
+                color: $green;
+            }
+        }
+    }
+    .government-wraper {
+        margin-top: 165px;
+        .regulations-wraper {
+            margin-top: 43px;
+        }
+    }
+    .comment-wraper {
+        margin-top: 43px;
+        margin-left: 100px;
+    }
+    .history-wraper {
+        margin-top: 70px;
+        .collapse-wraper {
+            margin-left: 65px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .timeline-box-wraper {
+        margin-top: 23px;
+        padding: 30px;
+        min-height: 400px;
+        .timeline-item-wraper {
+            margin-bottom: 30px;
+            .item-content {
+                width: 611px;
+                height: 102px;
+                background: $whisper;
+                border-radius: 15px;
+            }
+            .item-img {
+                width: 100px;
+                text-align: center;
+                .government-user-img {
+                    width: 58px;
+                    height: 41px;
+                }
+            }
+            .item-comment {
+                margin-top: 17px;
+                margin-left: 24px;
+            }
+            .item-right-wraper {
+                margin-left: 70px;
+            }
+        }
+    }
+}
+
+#root .makeStyles-searchContainer-19 {
+    display: none;
+}

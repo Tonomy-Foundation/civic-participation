@@ -52,10 +52,10 @@ function Dashboard(props) {
         }
 
         main();
-    }, []);
+    }, [authContext, history]);
 
     const navigateToProposal = (proposalId) => {
-        history.push(`/proposals/${proposalId}`);
+        history.push(`/proposal/${proposalId}`);
     }
 
     return (

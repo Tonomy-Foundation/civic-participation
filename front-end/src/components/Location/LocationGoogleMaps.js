@@ -3,12 +3,9 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import AutoComplete from './Autocomplete';
 import Marker from './Marker';
+import settings from '../../settings';
 
 class LocationGooglMap extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         mapApiLoaded: false,
         mapInstance: null,
@@ -23,7 +20,7 @@ class LocationGooglMap extends Component {
         lng: this.props.location.lng
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.setCurrentLocation();
     }
 
@@ -77,7 +74,7 @@ class LocationGooglMap extends Component {
         const {
             mapApi
         } = this.state;
-        const geocoder = new mapApi.Geocoder;
+        const geocoder = new mapApi.Geocoder();
         geocoder.geocode({ 'location': { lat: this.state.lat, lng: this.state.lng } }, (results, status) => {
             if (status === 'OK') {
                 if (results[0]) {
@@ -107,19 +104,19 @@ class LocationGooglMap extends Component {
 
     render() {
         const {
-            places, mapApiLoaded, mapInstance, mapApi,
+            mapApiLoaded, mapInstance, mapApi,
         } = this.state;
 
         return (
             <>
-                {mapApiLoaded && (
+                {mapApiLoaded && this.props.editable && (
                     <div>
                         <AutoComplete map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
                     </div>
                 )}
                 <GoogleMapReact
-                    center={this.state.center}
-                    zoom={this.state.zoom}
+                    defaultCenter={this.state.center}
+                    defaultZoom={this.state.zoom}
                     draggable={this.state.draggable}
                     onChange={this._onChange}
                     onChildMouseDown={this.onMarkerInteraction}
@@ -127,7 +124,7 @@ class LocationGooglMap extends Component {
                     onChildMouseMove={this.onMarkerInteraction}
                     onClick={this._onClick}
                     bootstrapURLKeys={{
-                        key: 'AIzaSyDMa6KMn669HY33Qrdu5gd0ggyf5C8G4WQ',
+                        key: settings.google.apiKey,
                         libraries: ['places', 'geometry'],
                     }}
                     yesIWantToUseGoogleMapApiInternals
@@ -135,8 +132,8 @@ class LocationGooglMap extends Component {
                 >
                     <Marker
                         text={this.state.address}
-                        lat={this.props.lat}
-                        lng={this.props.lng}
+                        lat={this.props.location.lat}
+                        lng={this.props.location.lng}
                     />
                 </GoogleMapReact>
             </ >

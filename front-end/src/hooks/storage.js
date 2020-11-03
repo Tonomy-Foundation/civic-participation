@@ -1,9 +1,10 @@
 
-export function setUserStorage(accountName, commonName, privKey) {
+export function setUserStorage(accountName, commonName, privKey, isGov) {
     const user = {
         accountName,
         commonName,
-        privKey
+        privKey,
+        isGov
     }
     localStorage.setItem('user', JSON.stringify(user));
 }

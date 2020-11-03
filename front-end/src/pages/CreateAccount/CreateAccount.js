@@ -23,6 +23,7 @@ import {
 	HtmlTooltip
 } from '../../components/Themes';
 import './CreateAccount.scss'
+import { useEffect } from 'react';
 
 export default function CreateAccount() {
 	const history = useHistory();
@@ -56,12 +57,22 @@ export default function CreateAccount() {
 		}
 	};
 
+	useEffect(() => {
+		async function main() {
+			if (await authContext.isLoggedIn()) {
+				history.push('/dashboard');
+				return;
+			}
+		}
+		main();
+	}, [authContext, history])
+
 	const navigateLoginPage = () => {
 		history.push("/login")
 	}
 
 	const navigateSecurityPage = () => {
-		window.open("security", "_blank")
+		window.open("/security", "_blank")
 	}
 
 	const GreenSmallTypographyCreate = withStyles({

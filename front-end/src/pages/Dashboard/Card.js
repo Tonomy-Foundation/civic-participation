@@ -99,7 +99,7 @@ export default function Card(props) {
                             <img className={classes.img} alt={props.title} src={props.imageUrl} />
                         }
                         {!props.imageUrl &&
-                            <img className={classes.img} style={{ opacity: 0.1 }} src={Logo} />
+                            <img className={classes.img} alt="Civic logo" style={{ opacity: 0.1 }} src={Logo} />
                         }
                     </ButtonBase>
                 </Grid>

@@ -15,8 +15,7 @@ const pre = async function(req, res, next) {
 
     const url = settings.dfuseOptions.secure ? "https://" : "http://" + settings.dfuseOptions.network + req.url;
     options = {
-        method: req.method,
-        timeout: 10000
+        method: req.method
     }
     if (req.method === "POST" || req.method === "PUT") {
         let body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;

@@ -29,14 +29,14 @@ export default function TextInput(props) {
     }));
 
     const classes = useStyles();
-    const [defaultText, setDefaultText] = useState(props.defaultText)
+    const [defaultText,] = useState(props.defaultText)
 
     return (
         <>
             <Grid className="input-container">
                 <TextField
                     name={props.name}
-                    className={classes.margin, classes.commonText}
+                    className={classes.margin + ' ' + classes.commonText}
                     label={props.label}
                     value={props.value}
                     inputRef={props.registerRef}

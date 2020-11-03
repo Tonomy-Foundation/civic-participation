@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ConsumeAuth } from '../../hooks/authContext'
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -56,6 +56,17 @@ export default function Login() {
 		}
 	};
 
+	useEffect(() => {
+		async function main() {
+			if (await authContext.isLoggedIn()) {
+				history.push('/dashboard');
+				return;
+			}
+		}
+		main();
+	}, [authContext, history])
+
+
 	const navigateCreatePage = () => {
 		history.push("/")
 	}
@@ -90,7 +101,7 @@ export default function Login() {
 	})(Typography);
 
 	const navigateSecurityPage = () => {
-		window.open("security", "_blank")
+		window.open("/security", "_blank")
 	}
 
 	const TitleLock = withStyles({

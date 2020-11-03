@@ -16,26 +16,27 @@ module.exports = async function(req, res) {
     const pubKey = req.body.pubKey
 
     const blockchainAccount = await accountability.getAccount(accountName);
-
     if (!blockchainAccount) {
         return res.status(401).send('Account not found');
     }
 
     const blockchainActivePermission = blockchainAccount.permissions.find(element => element.perm_name === 'active');
-
     if (!blockchainActivePermission) {
         return res.status(400).send('Active permission not found');
     }
 
     const blockchainActivePermissionKey = blockchainActivePermission.required_auth.keys[0].key
-
-    if(pubKey !== blockchainActivePermissionKey) {
+    if (pubKey !== blockchainActivePermissionKey) {
         return res.status(400).send('Public keys do not match');
     }
 
+    const govAccount = await accountability.getAccount("gov");
+    const govPermission = govAccount.permissions.find(x => x.perm_name === 'active').required_auth.accounts.find(y => y.permission.actor === accountName);
+    const isGov = govPermission ? true : false;
+
     const accountDoc = await accountController.findOne({ accountName: accountName });
 
-    const accountExtendedObject = { ...blockchainAccount, commonName: accountDoc.commonName, type: AccountType.Human }
+    const accountExtendedObject = {...blockchainAccount, commonName: accountDoc.commonName, type: AccountType.Human, isGov }
 
     res.send(accountExtendedObject);
 }

@@ -59,6 +59,7 @@ class AutoComplete extends Component {
                     type="text"
                     onFocus={this.clearSearchBox}
                     placeholder="Location"
+                    disabled={this.props.editable}
                 />
                 <RoomIcon className="search-icon"/>
             </div>

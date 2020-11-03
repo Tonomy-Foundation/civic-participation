@@ -213,7 +213,6 @@ export default class Civic {
             type: proposal.type,
             location: proposal.location,
             proposalId: proposal.proposalId,
-            status: ProposalStatus.Proposed,
             created: Accountability.timePointToDate(decodedRow.created),
             updated: Accountability.timePointToDate(decodedRow.updated),
             approved: Accountability.timePointToDate(decodedRow.approved),
@@ -330,6 +329,7 @@ export default class Civic {
                     authHuman: data.account_authorizers[0],
                     authHumanCommonName: data.account_authorizers_common_names[0],
                     data: actionData.data,
+                    gov: isGovAction(actionData.name),
                     status: mapActionToStatus(actionData.name)
                 }
                 if (actionData.name === "propupdate") proposalData.status = actionData.data.new_status;
@@ -357,6 +357,7 @@ function parseAccountRes(data) {
         created: Accountability.timePointToDate(data.created),
         permissions: data.permissions,
         contractDeployed: data.last_code_update !== "1970-01-01T00:00:00.000",
+        isGov: data.isGov
     }
     if (val.contractDeployed) {
         val.lastContractUpdate = Accountability.timePointToDate(data.last_code_update);
@@ -374,3 +375,17 @@ function mapActionToStatus(actionName) {
             throw new Error("Invalid action name");
     }
 }
+
+function isGovAction(action) {
+    switch (action) {
+        case "propcreate":
+            return false;
+        case "propupdate":
+            return true;
+        case "propvote":
+            return false;
+        default:
+            throw new Error("action not valid");
+    }
+}
+

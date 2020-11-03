@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import logo from '../../assets/image/logo.png';
 import { useHistory } from "react-router-dom";
+import { ConsumeAuth } from '../../hooks/authContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     },
     logoContainer: {
         marginLeft: 80,
-        alignItems: "center"
+        alignItems: "center",
+        cursor: "pointer"
     },
     searchContainer: {
         maxWidth: 385,
@@ -84,15 +86,6 @@ const LogoTitle = withStyles({
     }
 })(Typography);
 
-const NavbarTitle = withStyles({
-    root: {
-        color: '#1261A3',
-        fontWeight: '400',
-        fontSize: '18px',
-        lineHeight: '12px'
-    }
-})(Typography);
-
 const CreateButton = withStyles({
     root: {
         backgroundColor: '#1261A3',
@@ -135,18 +128,28 @@ export default function Navbar() {
     const classes = useStyles();
     const [selectedProposal, setSelectedProposal] = useState('');
     const history = useHistory();
+    const authContext = ConsumeAuth();
 
     const handleChange = (event) => {
         setSelectedProposal(event.target.value);
     };
 
+    function clickLogo() {
+        history.push('/');
+    }
+
+    async function logout() {
+        await authContext.logout();
+        history.push('/login');
+    }
+
     return (
         <div className={classes.root}>
             <Grid item container className={classes.navbar} alignItems="center" justify="flex-start">
                 <Grid item container xs={4} alignItems="center">
-                    <Grid item container className={classes.logoContainer}>
+                    <Grid item container className={classes.logoContainer} onClick={clickLogo}>
                         <Grid item className={classes.logo}>
-                            <img src={logo} className={classes.logoImage} />
+                            <img src={logo} alt="Civic Participation Tool" className={classes.logoImage} />
                         </Grid>
                         <LogoTitle>Civic</LogoTitle>
                     </Grid>
@@ -181,6 +184,7 @@ export default function Navbar() {
                 </Grid>
                 <Grid item container xs={4} alignItems="center">
                     <Grid item container className={classes.buttonContainer}>
+                        <DashboardButton onClick={logout}>Logout</DashboardButton>
                         <DashboardButton onClick={() => history.push('/dashboard')}>Dashboard</DashboardButton>
                         <CreateButton onClick={() => history.push('/proposal-create')}>CREATE</CreateButton>
                     </Grid>

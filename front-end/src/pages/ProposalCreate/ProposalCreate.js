@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-
+import React, { useState, useEffect } from "react";
 import { ConsumeAuth } from '../../hooks/authContext'
 import { ProposalCategory, ProposalType } from '../../types/civic';
 
@@ -26,7 +23,9 @@ import Select from "@material-ui/core/Select";
 import { DropzoneArea } from "material-ui-dropzone";
 import { Lock } from "@material-ui/icons";
 import LocationGoogleMaps from "../../components/Location/LocationGoogleMaps";
-import "./ProposalCreate.scss";
+import { useForm, Controller } from "react-hook-form";
+import './ProposalCreate.scss';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -168,7 +167,7 @@ const UploadLock = withStyles({
 export default function ProposalCreate() {
     const authContext = ConsumeAuth()
     const classes = useStyles();
-	const history = useHistory();
+    const history = useHistory();
 
     const [files, setFiles] = useState([]);
     const [fileError, setFileError] = useState(false);
@@ -203,7 +202,6 @@ export default function ProposalCreate() {
         const create = await authContext.civic.proposalCreate({
             ...data,
             category: +data.category,
-            type: +data.type,
             location: "52.1135031,4.2829047",
             photos: files
         })
@@ -213,16 +211,26 @@ export default function ProposalCreate() {
 
     const CHARACTER_LIMIT = 580;
 
+    useEffect(() => {
+        async function main() {
+            if (!await authContext.isLoggedIn()) {
+                history.push('/login');
+                return;
+            }
+        }
+        main();
+    }, [])
+
     return (
         <div className={classes.root}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container direction="column">
-                    <Grid className="hearder-wrap">
-                        <img src={background} className="hearder-img" />
+                    <Grid className="header-wrap">
+                        <img src={background} className="header-img" />
                         <Grid
                             container
                             direction="row"
-                            className="hearder-title"
+                            className="header-title"
                             alignItems="center"
                         >
                             <HeaderCustomizeStar />

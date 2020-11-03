@@ -50,7 +50,7 @@ function authHeader(accountName, permission, privKey, pubKey) {
 
 function addAuthHeader(accountName, permission, privKey, pubKey) {
     return (...args) => {
-        const url = args[0];
+        // const url = args[0];
         const requestOptions = args[1];
 
         requestOptions.headers = {
