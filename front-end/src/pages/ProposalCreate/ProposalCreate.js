@@ -526,11 +526,11 @@ export default function ProposalCreate() {
                             </Grid>
                         </Grid>
                         <Grid className="upload-button">
-                            <UploadButton type="submit">UPLOAD</UploadButton>
+                            <UploadButton type="submit">SUBMIT</UploadButton>
                             <div className="encrypt-wrap">
                                 <Grid item>
                                     <UploadSmallTypographyCreate>
-                                        encrypted
+                                        tamper proof
                                     </UploadSmallTypographyCreate>
                                 </Grid>
                                 <Grid item>

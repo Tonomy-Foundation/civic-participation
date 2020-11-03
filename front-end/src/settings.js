@@ -1,13 +1,13 @@
 let settings = {
     eosio: {
-        nodeos: "http://localhost:4000",
-        blockExplorerUrl: "http://localhost:8080",
+        nodeos: "http://192.168.178.248:4000",
+        blockExplorerUrl: "http://192.168.178.248:8080",
     },
     dfuseOptions: {
         apiKey: "web_abcdef123456789",
         authUrl: "null://",
         secure: false,
-        network: "localhost:4000"
+        network: "192.168.178.248:4000"
     },
     google: {
         apiKey: "AIzaSyDMa6KMn669HY33Qrdu5gd0ggyf5C8G4WQ"
