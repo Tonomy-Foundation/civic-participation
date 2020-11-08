@@ -191,7 +191,7 @@ export default class Civic {
         const txData = {
             actions: [{
                 account: 'civic',
-                name: 'propupdate',
+                name: 'propupdate2',
                 authorization: [{
                     actor: this.account.accountName,
                     permission: this.accountability.account.permission,
@@ -210,41 +210,30 @@ export default class Civic {
                     location: proposal.location,
                     new_status: proposal.status,
                     regulations: proposal.regulations,
-                    comment: proposal.comment,
-                    // sha256 of ''
-                    photo: '6f49cdbd80e1b95d5e6427e1501fc217790daee87055fa5b4e71064288bddede'
+                    comment: proposal.comment
                 },
             }]
+        }
+
+        if (proposal.photo) {
+            const imageBase64 = await encodeImageFileAsURL(proposal.photo);
+
+            const response = await Api.post('/image', {
+                photoString: imageBase64
+            });
+
+            txData.actions[0].name = 'propupdate';
+            txData.actions[0].data.photo = response.data.imageSha256;
         }
 
         const tx = await this.accountability.transact2(txData);
 
         await wait(1000);
         const txDetailed = await this.accountability.dfuseClient.fetchTransaction(tx.transaction_id);
-        console.log(txDetailed)
 
         const blockNum = txDetailed.execution_trace.action_traces[0].block_num;
         const decodedRows = await this.accountability.dfuseClient.stateAbiBinToJson('civic', 'proposals', [txDetailed.dbops[0].new.hex], blockNum)
         const decodedRow = decodedRows.rows[0];
-
-        if (proposal.photo) {
-            const imageBase64 = await encodeImageFileAsURL(proposal.photo);
-
-            // 1. get sha256 of imageString
-            // await Api.post('/image')
-            // then we will get SHA256 of base64 string which we can pass to propcreate smart contract.
-            // if we have photo in proposal let us push that data as well. But we will only get this data from /image API response.
-            // proposal.photoSHA256 we will get from /image API.
-
-            const response = await Api.post('/image', {
-                photoString: imageBase64
-            });
-
-            txData.actions[0].data.photo = response.data.imageSha256;
-        } else {
-            const actionTraces = txDetailed.execution_trace.action_traces
-            txData.actions[0].data.photo = actionTraces[actionTraces.length - 1].act.data.photo;
-        }
 
         const proposalDetailed = {
             title: proposal.title,
@@ -427,6 +416,8 @@ function isGovAction(action) {
         case "propcreate":
             return false;
         case "propupdate":
+            return true;
+        case "propupdate2":
             return true;
         case "propvote":
             return false;

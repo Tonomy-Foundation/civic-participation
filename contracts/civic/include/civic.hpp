@@ -16,6 +16,9 @@ public:
   ACTION propupdate(name updater, uint64_t proposal_id, string title, string description, uint8_t category, float budget,
                     uint8_t type, string location, uint8_t new_status, string regulations, string comment, eosio::checksum256 photo);
 
+  ACTION propupdate2(name updater, uint64_t proposal_id, string title, string description, uint8_t category, float budget,
+                    uint8_t type, string location, uint8_t new_status, string regulations, string comment);
+
   // ACTION propvote(name voter, uint64_t proposal_id, bool vote);
 
   // Updates votes passed the voting period that have not passed to status = Rejected

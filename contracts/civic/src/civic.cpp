@@ -74,6 +74,51 @@ ACTION civic::propupdate(name updater, uint64_t proposal_id, string title, strin
 
     proposal_event(proposal_id);
 }
+
+ACTION civic::propupdate2(name updater, uint64_t proposal_id, string title, string description, uint8_t category,
+                         float budget, uint8_t type, string location, uint8_t new_status, string regulations, string comment)
+{
+    // check(updater == eosio::name("gov"), "Only government can update proposals"); // do not use, otherwise the human account cannot be used
+    require_auth(updater);
+    require_auth(eosio::name("gov")); // updater must be authorized as a member of gov
+
+    // Check that it is an appropriate status to update to, else throw error
+    switch (new_status)
+    {
+    case ProposalStatus::Reviewing:
+    case ProposalStatus::Approved:
+    case ProposalStatus::Rejected:
+    case ProposalStatus::Actioned:
+    case ProposalStatus::Closed:
+        break;
+    default:
+        eosio::check(false, "You cannot update to this proposal status");
+    }
+
+    proposals_table _proposals(get_self(), get_self().value);
+
+    time_point now = current_time_point();
+
+    const auto &proposal_itr = _proposals.get(proposal_id); // will throw error if not found
+
+    _proposals.modify(proposal_itr, updater, [&](auto &proposal) {
+        proposal.title = title;
+        proposal.description = description;
+        proposal.category = category;
+        proposal.budget = budget;
+        proposal.type = type;
+        proposal.location = location;
+        proposal.status = new_status;
+        proposal.regulations = regulations;
+        proposal.updated = now;
+
+        if (new_status == ProposalStatus::Approved)
+            proposal.approved = now;
+    });
+
+    proposal_event(proposal_id);
+}
+
 // Default Action hi
 // ACTION civic::hi(name from, string message)
 // {
