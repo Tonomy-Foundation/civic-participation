@@ -406,6 +406,8 @@ function mapActionToStatus(actionName) {
             return ProposalStatus.Proposed;
         case "propupdate":
             return ProposalStatus.Reviewing;
+        case "propupdate2":
+            return ProposalStatus.Reviewing;
         default:
             throw new Error("Invalid action name");
     }
