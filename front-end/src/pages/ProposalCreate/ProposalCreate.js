@@ -174,6 +174,7 @@ export default function ProposalCreate() {
     const [location, setLocation] = useState({ lat: 52.1135031, lng: 4.2829047 });
 
     const handleChangeLocation = async (location) => {
+        console.log(location)
         setLocation(location)
     }
 

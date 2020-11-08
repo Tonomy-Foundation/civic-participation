@@ -217,6 +217,16 @@ export default class Civic {
             }]
         }
 
+        const tx = await this.accountability.transact2(txData);
+
+        await wait(1000);
+        const txDetailed = await this.accountability.dfuseClient.fetchTransaction(tx.transaction_id);
+        console.log(txDetailed)
+
+        const blockNum = txDetailed.execution_trace.action_traces[0].block_num;
+        const decodedRows = await this.accountability.dfuseClient.stateAbiBinToJson('civic', 'proposals', [txDetailed.dbops[0].new.hex], blockNum)
+        const decodedRow = decodedRows.rows[0];
+
         if (proposal.photo) {
             const imageBase64 = await encodeImageFileAsURL(proposal.photo);
 
@@ -231,16 +241,10 @@ export default class Civic {
             });
 
             txData.actions[0].data.photo = response.data.imageSha256;
+        } else {
+            const actionTraces = txDetailed.execution_trace.action_traces
+            txData.actions[0].data.photo = actionTraces[actionTraces.length - 1].act.data.photo;
         }
-
-        const tx = await this.accountability.transact2(txData);
-
-        await wait(1000);
-        const txDetailed = await this.accountability.dfuseClient.fetchTransaction(tx.transaction_id);
-
-        const blockNum = txDetailed.execution_trace.action_traces[0].block_num;
-        const decodedRows = await this.accountability.dfuseClient.stateAbiBinToJson('civic', 'proposals', [txDetailed.dbops[0].new.hex], blockNum)
-        const decodedRow = decodedRows.rows[0];
 
         const proposalDetailed = {
             title: proposal.title,
