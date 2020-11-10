@@ -384,8 +384,7 @@ export default function ProposalDetail() {
   };
 
   const onSubmit = async (data) => {
-    const budget =
-      typeof data.budget === "number" ? data.budget : Number(data.budget);
+    const budget = typeof data.budget === 'string' ? parseFloat(data.budget.replace(',', '')) : data.budget
 
     await authContext.civic.proposalUpdate({
       ...data,
@@ -486,7 +485,7 @@ export default function ProposalDetail() {
                 )}
                 <Grid item className="type-wrape">
                   <TitleLabelTypography>
-                    Infrastucture type
+                    Infrastructure type
                   </TitleLabelTypography>
                   {typeToLabel(proposal.type)}
                 </Grid>
@@ -669,7 +668,7 @@ export default function ProposalDetail() {
                       as={<CurrencyTextField />}
                       name="budget"
                       currencySymbol="€"
-                      outputFormat="string"
+                      outputFormat="number"
                       decimalCharacter="."
                       digitGroupSeparator=","
                       placeholder="Budget"
@@ -684,7 +683,6 @@ export default function ProposalDetail() {
                       ref={register}
                       key="budget"
                       rules={{ required: true }}
-                      value={null}
                     />
                   </Grid>
                   <Grid item className="type-wrape">
