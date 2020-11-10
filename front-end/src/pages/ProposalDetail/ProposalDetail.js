@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 
 import { ConsumeAuth } from "../../hooks/authContext";
+import { ConsumeVote } from "../../hooks/voteContext";
 
 import { ProposalCategory, ProposalType } from "../../types/civic";
 import { toLabel as categoryToLabel } from "../../types/proposals/categories";
@@ -269,6 +270,7 @@ export default function ProposalDetail() {
   const history = useHistory();
 
   const authContext = ConsumeAuth();
+  const voteContext = ConsumeVote();
 
   const classes = useStyles();
 
@@ -312,7 +314,6 @@ export default function ProposalDetail() {
       type: proposalRes.type,
       location: parseLocation(proposalRes.location),
       status: proposalRes.status,
-      // status: toDefinition(proposalRes.status),
     };
     if (proposalRes.photo) proposalState.photo = proposalRes.photo;
     if (proposalRes.regulations)
@@ -333,10 +334,8 @@ export default function ProposalDetail() {
       }
     }
 
-    setCategory(+proposalState.category);
     setLocation(proposalState.location);
     setProposal(proposalState);
-    console.log(proposalState);
   }, [authContext.civic, authContext.isGov, proposal_id]);
 
   const getProposalHistory = useCallback(async () => {
@@ -363,7 +362,6 @@ export default function ProposalDetail() {
         history.push("/login");
         return;
       }
-      // useCallback(getProposal);
       getProposal();
       getProposalHistory();
     }
@@ -375,7 +373,7 @@ export default function ProposalDetail() {
   };
 
   function onVote() {
-    // TODO add to vote state (new context)
+    voteContext.setProposals([ ...voteContext.proposals, proposal ]);
     history.push("/proposals-vote");
   }
 
@@ -384,7 +382,10 @@ export default function ProposalDetail() {
   };
 
   const onSubmit = async (data) => {
-    const budget = typeof data.budget === 'string' ? parseFloat(data.budget.replace(',', '')) : data.budget
+    const budget =
+      typeof data.budget === "string"
+        ? parseFloat(data.budget.replace(",", ""))
+        : data.budget;
 
     await authContext.civic.proposalUpdate({
       ...data,

@@ -1,18 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { ProvideAuth } from './hooks/authContext';
+import { ProvideAuth } from "./hooks/authContext";
+import { ProvideVote } from "./hooks/voteContext";
 
-const AppProviders = props => {
-    const { children } = props;
+const AppProviders = (props) => {
+  const { children } = props;
 
-    return (
-    <ProvideAuth>{children}</ProvideAuth>
-    );
+  return (
+    <ProvideAuth>
+      <ProvideVote>{children}</ProvideVote>
+    </ProvideAuth>
+  );
 };
 
 AppProviders.propTypes = {
-    children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default AppProviders;
