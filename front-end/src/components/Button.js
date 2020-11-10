@@ -37,7 +37,7 @@ export default function ButtonComponent(
 
     return (
         <Button disabled={loading} type={type}>
-            {loading ? <CircularProgressComponent size={14} className="circular-progress" /> : text}
+            {text}
         </Button>
     );
 }

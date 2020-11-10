@@ -27,7 +27,7 @@ const MapContainer = (props) => {
                 zoom={props.zoom}
                 center={currentPosition}>
                 {
-                    props.proposalList.map(item => {
+                    props.selectedProposals.map(item => {
                         return (
                             <Marker
                                 key={item.proposalId}

@@ -16,12 +16,10 @@ const corsOptions = {
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(logger('dev'));
-app.use(express.json());
-// app.use(express.urlencoded({ extended: false })); // unsure if still needed, as using body-parser
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.text()); // needed to parse eosjs api into req.body
-// app.use(cookieParser()); // this not needed. Delete me later
 
 app.use(blockchainProxy.pre);
 

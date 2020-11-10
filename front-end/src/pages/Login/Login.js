@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
 import { ConsumeAuth } from '../../hooks/authContext'
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
+import { 
+	Button,
+	Snackbar,
+	IconButton,
+	Grid,
+	Link,
+	Typography,
+	CircularProgress,
+	withStyles
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { Grid } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import { Link } from '@material-ui/core';
-import { withStyles } from "@material-ui/core/styles";
 import { AccountCircle, Lock } from '@material-ui/icons';
-import { Typography } from '@material-ui/core';
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import ButtonComponent from '../../components/Button';
@@ -223,6 +226,7 @@ export default function Login() {
 								</HtmlTooltip>
 								<Grid item className="login-button">
 									<ButtonComponent loading={loading} type="submit" text="LOGIN" />
+									{loading && <CircularProgress size={24} className="button-progress" />}
 								</Grid>
 							</Grid>
 						</form>

@@ -92,36 +92,13 @@ function Timeline(props) {
                     </Grid>
                 </Grid>
                 <Grid item container xs={6} className="item-right-wraper">
-                    <Grid item container spacing={3}>
-                        <Grid item xs={6} container >
-                            <HtmlTooltip
-                                title={
-                                    <React.Fragment>
-                                        <div>{<TitleLock />}Proposals, voting and government actions are stored on the blockchain.
-												This data is cryptographically secured and cannot be forged or tampered
-												with by anyone, including the government.&nbsp;
-												<Link className="read-more-link" onClick={navigateSecurityPage}>
-                                                Click to learn more
-												</Link>
-                                        </div>
-                                    </React.Fragment>
-                                }
-                                arrow
-                                interactive
-                            >
-                                <span>
-                                    <Grid item>
-                                        <TimelineLock />
-                                    </Grid>
-                                    <Grid item>
-                                        <TimelineMiddleTyography>{props.status}</TimelineMiddleTyography>
-                                    </Grid>
-
-                                </span>
-                            </HtmlTooltip>
-
+                    <Grid item container spacing={2}>
+                        <Grid item xs={7} container >
+                            <Grid item>
+                                <TimelineMiddleTyography>{props.status}</TimelineMiddleTyography>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6} container >
+                        <Grid item xs={5} container >
                             <Grid item>
                                 <TimelineMiddleUnderlineTyography>{props.time}</TimelineMiddleUnderlineTyography>
                             </Grid>

@@ -3,11 +3,14 @@ import { ConsumeAuth } from '../../hooks/authContext'
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Grid } from '@material-ui/core';
+import { 
+		Grid,
+		CircularProgress,
+		Link,
+		Typography,
+		Button
+} from '@material-ui/core';
 import { ExpandLess } from '@material-ui/icons';
-import { Link } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import { AccountCircle, Lock } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
@@ -174,13 +177,13 @@ export default function CreateAccount() {
 										color="green"
 										errors={errors}
 										registerRef={register({
-											required: "Up to 13 characters with letters and 0-5.",
+											required: "Up to 13 characters with letters and 1-5.",
 											pattern: {
-												value: /^[0-5a-zA-Z]{1,13}$/,
-												message: "Up to 13 characters with letters and 0-5."
+												value: /^[1-5a-zA-Z]{1,13}$/,
+												message: "Up to 13 characters with letters and 1-5."
 											}
 										})}
-										defaultText="Up to 13 characters with letters and 0-5"
+										defaultText="Up to 13 characters with letters and 1-5"
 									/>
 								</div>
 								<div className="form-ele-wrap">
@@ -266,6 +269,7 @@ export default function CreateAccount() {
 								</HtmlTooltip>
 								<Grid item className="create-button">
 									<ButtonComponent loading={loading} type="submit" text="Create" backgroundColor='#1261A3' />
+									{loading && <CircularProgress size={24} className="button-progress" />}
 								</Grid>
 							</Grid>
 						</form>

@@ -42,6 +42,15 @@
     margin-top: 56px;
     .button-wraper {
         margin-top: 10px;
+        position: relative;
+        .button-progress {
+            color: #FFFFFF;
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            margin-top: -12px;
+            margin-left: -12px;
+        }
         .encrypt-wrape {
             margin-top: 18px;
             text-align: center;
@@ -150,7 +159,7 @@
                     height: 156px;
                     width: 100%;
                     min-width: 200px;
-                    max-width: 412px;
+                    max-width: 330px;
                 }
                 .MuiDropzonePreviewList-removeButton {
                     top: 2px;
