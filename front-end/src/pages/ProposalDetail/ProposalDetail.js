@@ -27,6 +27,7 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 
+import { DropzoneArea } from "material-ui-dropzone";
 import { Lock } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Stars, ExpandMore, ExpandLess } from "@material-ui/icons";
@@ -273,6 +274,7 @@ export default function ProposalDetail() {
 
   const [showHistory, setShowHistory] = useState(true);
   const [category, setCategory] = useState(null);
+  const [files, setFiles] = useState([]);
   const [location, setLocation] = useState({ lat: 52.1135031, lng: 4.2829047 });
   const [editing, setEditing] = useState(false);
   const [proposal, setProposal] = useState();
@@ -382,18 +384,27 @@ export default function ProposalDetail() {
   };
 
   const onSubmit = async (data) => {
+    const budget =
+      typeof data.budget === "number" ? data.budget : Number(data.budget);
+
     await authContext.civic.proposalUpdate({
       ...data,
       proposalId: proposal.proposalId,
-      budget: Number(data.budget.replace(/[^0-9.-]+/g, "")),
+      budget,
       category: +data.category,
       status: +data.status,
       type: +data.type,
       location: `${location.lat},${location.lng}`,
+      photo: files.length > 0 ? files[0] : undefined,
     });
+
     getProposal();
     getProposalHistory();
     setEditing(false);
+  };
+
+  const handleDropDownImage = (files) => {
+    setFiles(files);
   };
 
   return (
@@ -764,11 +775,12 @@ export default function ProposalDetail() {
                   </Grid>
                 </Grid>
                 <Grid item xs={8}>
-                  <Paper className={classes.paper}>
-                    <ButtonBase className={classes.image}>
-                      <img className={classes.img} src="" />
-                    </ButtonBase>
-                  </Paper>
+                  <DropzoneArea
+                    acceptedFiles={["image/*"]}
+                    dropzoneText="drag files here or click to upload"
+                    onChange={(files) => handleDropDownImage(files)}
+                    filesLimit={1}
+                  />
                 </Grid>
               </Grid>
               <Grid item xs={12} container className="description-wraper">
@@ -843,9 +855,6 @@ export default function ProposalDetail() {
                         })}
                       >
                         <option aria-label="status" />
-                        <option value={ProposalStatus.Proposed}>
-                          Proposed
-                        </option>
                         <option value={ProposalStatus.Reviewing}>
                           Reviewing
                         </option>
@@ -855,16 +864,6 @@ export default function ProposalDetail() {
                         <option value={ProposalStatus.Rejected}>
                           Rejected
                         </option>
-                        <option value={ProposalStatus.VotePassed}>
-                          VotePassed
-                        </option>
-                        <option value={ProposalStatus.VoteFailed}>
-                          VoteFailed
-                        </option>
-                        <option value={ProposalStatus.Actioned}>
-                          Actioned
-                        </option>
-                        <option value={ProposalStatus.Closed}>Closed</option>
                       </Select>
                       {errors.status && (
                         <FormHelperText>Please select a status.</FormHelperText>
