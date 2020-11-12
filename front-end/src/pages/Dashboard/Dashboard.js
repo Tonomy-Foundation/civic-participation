@@ -190,6 +190,8 @@ function Dashboard(props) {
                                             selected={selected.proposalId === proposal.proposalId}
                                             onClick={() => setSelected(proposal)}
                                             onButtonClick={() => navigateToProposal(proposal.proposalId)}
+                                            hasBadge={status == ProposalStatus.Approved}
+                                            badgeContent={proposal.yesVoteCount}
                                         />
                                     </Grid>
                                 )}
