@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ConsumeAuth } from '../../hooks/authContext'
-import { 
+import {
 	Button,
 	Snackbar,
 	IconButton,
@@ -10,6 +10,8 @@ import {
 	CircularProgress,
 	withStyles
 } from '@material-ui/core';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import CloseIcon from '@material-ui/icons/Close';
 import { ExpandMore } from '@material-ui/icons';
 import { AccountCircle, Lock } from '@material-ui/icons';
@@ -25,6 +27,8 @@ import {
 	backgroundStyle,
 	HtmlTooltip
 } from '../../components/Themes';
+import { authTypes } from '../../utils';
+
 import './Login.scss';
 
 export default function Login() {
@@ -34,6 +38,7 @@ export default function Login() {
 	const [loading, setLoading] = React.useState(false)
 	const [open, setOpen] = React.useState(false);
 	const [message, setMessage] = React.useState(null);
+	const [loginType, setLoginType] = useState(authTypes.username);
 
 	const handleClose = (_, reason) => {
 		if (reason === 'clickaway') {
@@ -59,6 +64,15 @@ export default function Login() {
 		}
 	};
 
+	/**
+	 * Set the type of login: either with username or with SSI
+	 * @param {*} event 
+	 * @param {*} newLoginType 
+	 */
+	const handleLoginType = (event, newLoginType) => {
+		setLoginType(newLoginType);
+	};
+
 	useEffect(() => {
 		async function main() {
 			if (await authContext.isLoggedIn()) {
@@ -73,6 +87,10 @@ export default function Login() {
 	const navigateCreatePage = () => {
 		history.push("/")
 	}
+
+	const redirectToSSI = () => {
+		console.log('redirecting to SSI');
+	};
 
 	const GreenSmallTypography = withStyles({
 		root: {
@@ -112,6 +130,79 @@ export default function Login() {
 			fontSize: "14px"
 		}
 	})(Lock);
+
+	const loginWithUsername = (
+		<form onSubmit={handleSubmit(onSubmit)} className="login-form">
+			<Grid container direction="column" justify="center" alignContent="center">
+				<div className="form-ele-wrap">
+					<TextInput
+						label="Username"
+						name="username"
+						color="green"
+						errors={errors}
+						registerRef={register({ required: "Please enter a username." })}
+					/>
+				</div>
+				<div className="form-ele-wrap">
+					<PasswordInput
+						label="Enter your password"
+						name="password"
+						color="green"
+						errors={errors}
+						registerRef={register({ required: "Please enter a password." })}
+					/>
+				</div>
+			</Grid>
+			<Grid container item justify="center" alignContent="center">
+				<Link className="login-account-link" onClick={navigateCreatePage}>
+					CREATE ACCOUNT
+				</Link>
+			</Grid>
+			<Grid container item justify="center" alignContent="center">
+				<ExpandMore />
+			</Grid>
+			<Grid container direction="row" justify="flex-end" alignItems="center">
+				<HtmlTooltip
+					title={
+						<React.Fragment>
+							<div>{<TitleLock />}Proposals, voting and government actions are stored on the blockchain.
+						This data is cryptographically secured and cannot be forged or tampered
+						with by anyone, including the government.&nbsp;
+						<Link className="read-more-link" onClick={navigateSecurityPage}>
+									Click to learn more
+						</Link>
+							</div>
+						</React.Fragment>
+					}
+					arrow
+					interactive
+				>
+					<div className="encrypt-wrape">
+						<Grid item>
+							<GreenSmallTypography>
+								tamper proof
+			</GreenSmallTypography>
+						</Grid>
+						<Grid item>
+							<LoginLock />
+						</Grid>
+					</div>
+				</HtmlTooltip>
+				<Grid item className="login-button">
+					<ButtonComponent loading={loading} type="submit" text="LOGIN" />
+					{loading && <CircularProgress size={24} className="button-progress" />}
+				</Grid>
+			</Grid>
+		</form>
+	);
+	const loginWithSSI = (
+		<Grid container justify="flex-end">
+			<div className="login-button ssi">
+				<ButtonComponent loading={loading} type="button" text="Redirect to SSI" onClick={redirectToSSI} backgroundColor='#1261A3' />
+				{loading && <CircularProgress size={24} className="button-progress" />}
+			</div>
+		</Grid>
+	);
 
 	return (
 		<>
@@ -167,69 +258,24 @@ export default function Login() {
 							<Grid item className="left-margin">
 								<TitleLoginTypography>Login</TitleLoginTypography>
 							</Grid>
-						</Grid>
-						<form onSubmit={handleSubmit(onSubmit)} className="login-form">
-							<Grid container direction="column" justify="center" alignContent="center">
-								<div className="form-ele-wrap">
-									<TextInput
-										label="Username"
-										name="username"
-										color="green"
-										errors={errors}
-										registerRef={register({ required: "Please enter a username." })}
-									/>
-								</div>
-								<div className="form-ele-wrap">
-									<PasswordInput
-										label="Enter your password"
-										name="password"
-										color="green"
-										errors={errors}
-										registerRef={register({ required: "Please enter a password." })}
-									/>
-								</div>
-							</Grid>
-							<Grid container item justify="center" alignContent="center">
-								<Link className="login-account-link" onClick={navigateCreatePage}>
-									CREATE ACCOUNT
-								</Link>
-							</Grid>
-							<Grid container item justify="center" alignContent="center">
-								<ExpandMore />
-							</Grid>
-							<Grid container direction="row" justify="flex-end" alignItems="center">
-								<HtmlTooltip
-									title={
-										<React.Fragment>
-											<div>{<TitleLock />}Proposals, voting and government actions are stored on the blockchain.
-												This data is cryptographically secured and cannot be forged or tampered
-												with by anyone, including the government.&nbsp;
-												<Link className="read-more-link" onClick={navigateSecurityPage}>
-													Click to learn more
-												</Link>
-											</div>
-										</React.Fragment>
-									}
-									arrow
-									interactive
+							{/* create account with username/ssi */}
+							<Grid container direction="column" justify="center" alignContent="center" className="login-type">
+								<ToggleButtonGroup
+									value={loginType}
+									exclusive
+									onChange={handleLoginType}
+									aria-label="text alignment"
 								>
-									<div className="encrypt-wrape">
-										<Grid item>
-											<GreenSmallTypography>
-												tamper proof
-									</GreenSmallTypography>
-										</Grid>
-										<Grid item>
-											<LoginLock />
-										</Grid>
-									</div>
-								</HtmlTooltip>
-								<Grid item className="login-button">
-									<ButtonComponent loading={loading} type="submit" text="LOGIN" />
-									{loading && <CircularProgress size={24} className="button-progress" />}
-								</Grid>
+									<ToggleButton value={authTypes.username} aria-label="left aligned">
+										using Username
+									</ToggleButton>
+									<ToggleButton value={authTypes.SSI} aria-label="centered">
+										using SSI [Experiemental]
+									</ToggleButton>
+								</ToggleButtonGroup>
 							</Grid>
-						</form>
+						</Grid>
+						{loginType === authTypes.username ? loginWithUsername : loginWithSSI}
 					</Grid>
 				</Grid>
 			</Grid>

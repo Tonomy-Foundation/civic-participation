@@ -103,8 +103,13 @@
     color: red;
 }
 
-.login-form {
+.login-form, .login-button.ssi {
     margin-top: 20px;
+    // prevents screen flickering when we switch from create account by username to SSI
+    min-height: 270px;
+}
+.login-type {
+    margin-top:8px;
 }
 .login-button {
     position: relative;

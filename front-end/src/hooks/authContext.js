@@ -1,8 +1,25 @@
 import React, { useState, useContext, createContext } from "react";
 import PropTypes from "prop-types";
+
 import Civic from "../services/Civic";
-import { getUserStorage, setUserStorage, clearUserStorage } from "./storage";
-import { clearProposalsStorage } from "./storage";
+import SSIClient from "../services/SSI";
+import { clearProposalsStorage, getUserStorage, setUserStorage, clearUserStorage } from "./storage";
+
+const SSIInfo = {
+  "id": 3,
+  "name": "civic-integration",
+  "uuid": "74f4f840-4b6b-449d-b475-bdd2876b8b53"
+};
+
+const ssiCallbackUrl = 'https://civic.conscious-cities.com/ssi?response=';
+
+const options = {
+  name: SSIInfo.name,
+  callbackUrl: ssiCallbackUrl,
+};
+
+const ssiClient = new SSIClient(SSIInfo.id, SSIInfo.sharedSecret, options);
+ssiClient.credentialType = 'FullNameDataCredential';
 
 let civic = new Civic();
 const authContext = createContext();
@@ -67,6 +84,7 @@ function useProvideAuth() {
     login,
     createAccount,
     logout,
+    ssiClient,
   };
 }
 

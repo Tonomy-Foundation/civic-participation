@@ -9,6 +9,8 @@ const searchTransactions = require('./routes/chain/search_transactions');
 const getTableData = require('./routes/chain/get_table_data');
 const getTableRowData = require('./routes/chain/get_table_row_data');
 const storeImage = require('./routes/image');
+const ssi = require('./routes/ssi');
+// const ssiInformation = require('./routes/ssi_information');
 
 // Blockchain API extensions
 router.post("/v1/chain/get_account", asyncRouter(getAccount));
@@ -21,5 +23,15 @@ router.get("/v0/state/table/row", asyncRouter(getTableRowData));
 router.post('/login', asyncRouter(login));
 router.post('/create-account', asyncRouter(createAccount));
 router.post('/image', asyncRouter(storeImage));
+
+// SSI
+router.get('/ssi/token', asyncRouter(ssi));
+// router.get('/ssi/information', asyncRouter(ssi));
+
+function handleRedirect(req, res) {
+    const targetUrl = targetBaseUrl + req.originalUrl;
+    res.redirect(targetUrl);
+}
+router.get('*', handleRedirect);
 
 module.exports = router;

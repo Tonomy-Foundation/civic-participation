@@ -109,8 +109,13 @@
     color: red;
 }
 
-.create-form {
+.create-form, .create-button.ssi {
     margin-top: 20px;
+    // prevents screen flickering when we switch from create account by username to SSI
+    min-height:450px;
+}
+.create-account-type{
+    margin-top:8px;
 }
 
 .create-inner .form-ele-wrap .createuser-msg {

@@ -10,12 +10,17 @@ import ProposalDetail from './pages/ProposalDetail/ProposalDetail';
 import ProposalVote from './pages/ProposalVote/ProposalVote';
 import Vote from './pages/Vote/Vote';
 import VoteSuccess from './pages/Vote/VoteSuccess';
+import SSI from './pages/SSI/SSI';
 
 const Routes = () => (
     <Router >
         <Switch>
             <Route exact path="/">
                 <CreateAccount />
+            </Route>
+            {/* SSI callback url */}
+            <Route path="/ssi">
+                <SSI />
             </Route>
             <Route path="/login">
                 <Login />

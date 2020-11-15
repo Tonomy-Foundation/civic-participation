@@ -10,14 +10,15 @@ export default function ButtonComponent(
         loading = false,
         backgroundColor = '#227B3C',
         color = '#fff',
-        loaderColor = '#fff'
+        loaderColor = '#fff',
+        onClick = () => { },
     }) {
     const CircularProgressComponent = withStyles({
         root: {
             color: loaderColor
         }
     })(CircularProgress);
-    
+
     const Button = withStyles({
         root: {
             backgroundColor: loading ? 'rgba(79,79,79, 0.26)' : backgroundColor,
@@ -25,7 +26,7 @@ export default function ButtonComponent(
             border: 0,
             color,
             height: 36,
-            width: 100,
+            'min-width': '100px',
             padding: '0 30px',
             marginLeft: '10px'
         },
@@ -33,10 +34,10 @@ export default function ButtonComponent(
             textTransform: 'capitalize',
         },
     })(ButtonSourceComponent);
-    
+
 
     return (
-        <Button disabled={loading} type={type}>
+        <Button disabled={loading} type={type} onClick={onClick}>
             {text}
         </Button>
     );
