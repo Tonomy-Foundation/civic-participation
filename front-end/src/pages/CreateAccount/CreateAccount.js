@@ -343,7 +343,7 @@ export default function CreateAccount() {
 								<LogoCreateTitle>Create account</LogoCreateTitle>
 							</Grid>
 							{/* create account with username/ssi */}
-							<Grid container direction="column" justify="center" alignContent="center" className="create-account-type">
+							{/* <Grid container direction="column" justify="center" alignContent="center" className="create-account-type">
 								<ToggleButtonGroup
 									value={createAccountType}
 									exclusive
@@ -357,9 +357,10 @@ export default function CreateAccount() {
 										using SSI [Experiemental]
 									</ToggleButton>
 								</ToggleButtonGroup>
-							</Grid>
+							</Grid> */}
 						</Grid>
-						{createAccountType === authTypes.username ? createAccountWithRegistration : createAccountWithSSI}
+						{createAccountWithRegistration}
+						{/* {createAccountType === authTypes.username ? createAccountWithRegistration : createAccountWithSSI} */}
 					</Grid>
 				</Grid>
 			</Grid>

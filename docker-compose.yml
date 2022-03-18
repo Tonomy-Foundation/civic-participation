@@ -1,5 +1,14 @@
 version: '3'
 
+# default network specified so that it does not clash with any VPN software running on the OS
+# https://stackoverflow.com/a/56136591
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.57.0/24
+
 volumes:
   blockchain-data:
     external:
