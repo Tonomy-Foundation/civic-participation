@@ -259,7 +259,7 @@ export default function Login() {
 								<TitleLoginTypography>Login</TitleLoginTypography>
 							</Grid>
 							{/* create account with username/ssi */}
-							<Grid container direction="column" justify="center" alignContent="center" className="login-type">
+							{/* <Grid container direction="column" justify="center" alignContent="center" className="login-type">
 								<ToggleButtonGroup
 									value={loginType}
 									exclusive
@@ -273,9 +273,10 @@ export default function Login() {
 										using SSI [Experiemental]
 									</ToggleButton>
 								</ToggleButtonGroup>
-							</Grid>
+							</Grid> */}
 						</Grid>
-						{loginType === authTypes.username ? loginWithUsername : loginWithSSI}
+						{/* {loginType === authTypes.username ? loginWithUsername : loginWithSSI} */}
+						{loginWithUsername}
 					</Grid>
 				</Grid>
 			</Grid>

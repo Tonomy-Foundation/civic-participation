@@ -28,13 +28,13 @@ router.post('/create-account', asyncRouter(createAccount));
 router.post('/image', asyncRouter(storeImage));
 
 // SSI
-router.get('/ssi/token', asyncRouter(ssi));
+// router.get('/ssi/token', asyncRouter(ssi));
 // router.get('/ssi/information', asyncRouter(ssi));
 
-function handleRedirect(req, res) {
-    const targetUrl = targetBaseUrl + req.originalUrl;
-    res.redirect(targetUrl);
-}
-router.get('*', handleRedirect);
+// function handleRedirect(req, res) {
+//     const targetUrl = targetBaseUrl + req.originalUrl;
+//     res.redirect(targetUrl);
+// }
+// router.get('*', handleRedirect);
 
 module.exports = router;
