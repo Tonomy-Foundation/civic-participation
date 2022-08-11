@@ -22,7 +22,7 @@ ssh -v -i ./keys/ec2.pem ubuntu@ec2-35-180-242-177.eu-west-3.compute.amazonaws.c
 #     settings.eosio.nodeos = "http://ec2-35-180-242-177.eu-west-3.compute.amazonaws.com:4000";
 #     settings.dfuseOptions.network = "";
 #     settings.eosio.blockExplorerUrl = "http://ec2-35-180-242-177.eu-west-3.compute.amazonaws.com:8080";
-#     settings.dfuseOptions.network = "ec2-35-180-242-177.eu-west-3.compute.amazonaws.com:8080"
-#     settings.dfuseOptions.secure = true;
+#     settings.dfuseOptions.network = "ec2-35-180-242-177.eu-west-3.compute.amazonaws.com:4000"
+#     settings.dfuseOptions.secure = false;
 # }
 # then `./app.sh start prod`
