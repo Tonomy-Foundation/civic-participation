@@ -17,4 +17,6 @@ Use install script _should work_ for debian distributions to install prerequesit
 
 See:
 
+This is really cool
+
 `./app.sh`
