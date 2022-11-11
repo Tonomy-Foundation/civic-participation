@@ -12,7 +12,7 @@ sudo usermod -aG docker ${USER}
 #sudo shutdown now -r # needed for previous line to take effect
 
 # nvm with node and npm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh >> install.sh
 sudo chmod u+x install.sh
 ./install.sh
 # Close and open terminal again
