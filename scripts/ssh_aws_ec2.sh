@@ -2,7 +2,9 @@
 
 chmod 400 ./keys/ec2.pem
 ssh -v -i ./keys/ec2.pem ubuntu@ec2-35-180-242-177.eu-west-3.compute.amazonaws.com
+make sure ports 22, 3000, 4000, 8080, 8081 and 8888 are open
 
+Then check the settings in the settings.jsons
 
 # cd civic-participation/
 # ./app.sh stop
