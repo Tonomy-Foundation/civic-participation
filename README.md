@@ -18,3 +18,7 @@ Use install script _should work_ for debian distributions to install prerequesit
 See:
 
 `./app.sh`
+
+## Staging server setup
+
+`./staging/staging_setup.sh`
