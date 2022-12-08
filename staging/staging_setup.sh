@@ -85,6 +85,14 @@ varnew=`if (process.env.REACT_APP_NODE_ENV === "production") {
      settings.dfuseOptions.secure = false;
 }`
 
+echo ' You may need to update the Google Maps Javascript API key also in front-end/src/settings.json file'
+echo ' get it here https://developers.google.com/maps/documentation/javascript/get-api-key'
+
+echo ' try to make it look like '
+echo `google: {
+        apiKey: "New API key here"
+    },`
+
 echo $varnew
 
 echo ' You now need to make changes to the scripts/helpers.sh file ' 
