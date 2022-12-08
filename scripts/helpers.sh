@@ -11,7 +11,7 @@ function start {
     echo "Starting dfuse and mongodb"
     cd "${PARENT_PATH}"
     if [ "${ARG1}" == "prod" ]; then
-        EOSQ_ENDPOINT_URL="https://blockchain-civic.conscious-cities.com" docker-compose up -d
+        EOSQ_ENDPOINT_URL="http://161.35.246.173:8080" docker-compose up -d
     else
         EOSQ_ENDPOINT_URL="localhost:8080" docker-compose up -d
     fi

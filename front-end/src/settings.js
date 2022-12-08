@@ -17,11 +17,10 @@ let settings = {
 
 if (process.env.REACT_APP_NODE_ENV === "production") {
     settings.env = "production"
-    settings.eosio.nodeos = "https://server-civic.conscious-cities.com";
-    settings.dfuseOptions.network = "";
-    settings.eosio.blockExplorerUrl = "https://blockchain-civic.conscious-cities.com";
-    settings.dfuseOptions.network = "server-civic.conscious-cities.com"
-    settings.dfuseOptions.secure = true;
+    settings.eosio.nodeos = "http://161.35.246.173:4000";
+    settings.eosio.blockExplorerUrl = "http://161.35.246.173:8080";
+    settings.dfuseOptions.network = "161.35.246.173:8080"
+    settings.dfuseOptions.secure = false;
 }
 
 settings.isLiveEnvironment = function () {
