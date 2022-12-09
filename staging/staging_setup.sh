@@ -32,6 +32,12 @@ else
     echo "80 not open"
 fi
 
+if lsof -Pi :443 -sTCP:LISTEN -t >/dev/null ; then
+    echo "443 is open running"
+else
+    echo "443 not open"
+fi
+
 if lsof -Pi :8080 -sTCP:LISTEN -t >/dev/null ; then
     echo "8080 is open"
 else
