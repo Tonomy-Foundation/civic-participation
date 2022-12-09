@@ -11,7 +11,7 @@ function start {
     echo "Starting dfuse and mongodb"
     cd "${PARENT_PATH}"
     if [ "${ARG1}" == "prod" ]; then
-        EOSQ_ENDPOINT_URL="https://api-civic.tonomy.foundation" docker-compose up -d
+        EOSQ_ENDPOINT_URL="https://dfuse-civic.tonomy.foundation" docker-compose up -d
     else
         EOSQ_ENDPOINT_URL="localhost:8080" docker-compose up -d
     fi
