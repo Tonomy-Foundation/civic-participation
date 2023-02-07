@@ -6,7 +6,7 @@ Video walk-through and explainer: <https://www.loom.com/share/227ea74abbdd4047a1
 
 ## STEPS to setup
 
-1. Create a new user
+1. Create a new user (all small letters)
 2. Create several new proposals for the demo
 [https://website-civic.tonomy.foundation/proposal-create](https://website-civic.tonomy.foundation/proposal-create)
     1. Fill out all the fields including name, upload a photo and a location (click on the map)
