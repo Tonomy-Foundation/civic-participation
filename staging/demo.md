@@ -1,6 +1,8 @@
 # Demo manual
 
-Website: [https://website-civic.tonomy.foundation](https://website-civic.tonomy.foundation/)
+Website: <https://website-civic.tonomy.foundation>
+
+Video walk-through and explainer: <https://www.loom.com/share/227ea74abbdd4047a15f737abcdc15c4>
 
 ## STEPS to setup
 
