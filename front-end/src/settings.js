@@ -4,13 +4,13 @@ let settings = {
         blockExplorerUrl: "http://localhost:8080",
     },
     dfuseOptions: {
-        apiKey: "web_AIzaSyC1qMWpQAqk2Hh6cA-nV4hfCIU34f1gs7Y",
+        apiKey: "web_abcdef123456789",
         authUrl: "null://",
         secure: false,
         network: "localhost:4000"
     },
     google: {
-        apiKey: "AIzaSyBsVD_hzvy9f39CndxIcSLur_G8J9SimVc"
+        apiKey: "AIzaSyC1qMWpQAqk2Hh6cA-nV4hfCIU34f1gs7Y"
     },
     env: 'development'
 };
