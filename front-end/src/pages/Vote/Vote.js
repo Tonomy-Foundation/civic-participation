@@ -64,7 +64,7 @@ const TitleContentTypography = withStyles({
 const UploadSmallTypographyCreate = withStyles({
   root: {
     fontSize: "15px",
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Typography);
 
@@ -94,14 +94,14 @@ const TitleLock = withStyles({
 
 const CreateLock = withStyles({
   root: {
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Lock);
 
 const GreenSmallTypographyCreate = withStyles({
   root: {
     fontSize: "15px",
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Typography);
 
@@ -125,7 +125,7 @@ const ContentTypography = withStyles({
 
 const HomeButton = withStyles({
   root: {
-    backgroundColor: "#1261A3",
+    backgroundColor: "#BBA24B",
     borderRadius: 3,
     border: 0,
     color: "white",
@@ -210,7 +210,7 @@ export default function Vote() {
 
   const UploadButton = withStyles({
     root: {
-      backgroundColor: loading ? "rgba(79,79,79, 0.26)" : "#1261A3",
+      backgroundColor: loading ? "rgba(79,79,79, 0.26)" : "#BBA24B",
       borderRadius: 3,
       border: 0,
       color: "white",
@@ -283,7 +283,7 @@ export default function Vote() {
                   </Grid>
                   <Grid item container direction="column" spacing={2}>
                     <ProgressBar
-                      bgcolor={completed > 100 ? "#E39696" : "#599C6D"}
+                      bgcolor={completed > 100 ? "#E39696" : "#ce2226"}
                       completed={completed > 100 ? 100 : completed}
                       selectedValue={selectedValue}
                     />

@@ -25,7 +25,7 @@ const ContentTypography = withStyles({
 
 const HomeButton = withStyles({
     root: {
-        backgroundColor: '#1261A3',
+        backgroundColor: '#BBA24B',
         borderRadius: 3,
         border: 0,
         color: 'white',

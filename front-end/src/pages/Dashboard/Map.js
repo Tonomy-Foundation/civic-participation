@@ -62,7 +62,7 @@ const InfoWindow = (props) => {
           <div style={{ fontSize: 14, marginTop: "4px" }}>
             {categoryToLabel(place.category)}
           </div>
-          <div style={{ fontSize: 14, marginTop: "4px", color: "#227B3C" }}>
+          <div style={{ fontSize: 14, marginTop: "4px", color: "#ce2226" }}>
             {place.status === 2 && "Open to votes"}
           </div>
         </div>

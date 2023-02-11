@@ -5,9 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import { ErrorMessage } from "@hookform/error-message";
 
 export default function TextInput(props) {
-    let color = '#227B3C';
+    let color = '#ce2226';
     if (props.color === "blue") {
-        color = '#1261A3';
+        color = '#BBA24B';
     }
 
     const useStyles = makeStyles((theme) => ({

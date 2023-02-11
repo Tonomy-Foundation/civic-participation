@@ -95,13 +95,13 @@ export default function Login() {
 	const GreenSmallTypography = withStyles({
 		root: {
 			fontSize: '15px',
-			color: '#227B3C',
+			color: '#ce2226',
 		}
 	})(Typography);
 
 	const LogoIcon = withStyles({
 		root: {
-			color: '#227B3C',
+			color: '#ce2226',
 			fontSize: 30,
 			lineHeight: 0
 		}
@@ -109,13 +109,13 @@ export default function Login() {
 
 	const LoginLock = withStyles({
 		root: {
-			color: '#227B3C'
+			color: '#ce2226'
 		}
 	})(Lock);
 
 	const TitleLoginTypography = withStyles({
 		root: {
-			color: '#227B3C',
+			color: '#ce2226',
 			fontSize: '30px',
 			lineHeight: '35px'
 		}
@@ -198,7 +198,7 @@ export default function Login() {
 	const loginWithSSI = (
 		<Grid container justify="flex-end">
 			<div className="login-button ssi">
-				<ButtonComponent loading={loading} type="button" text="Redirect to SSI" onClick={redirectToSSI} backgroundColor='#1261A3' />
+				<ButtonComponent loading={loading} type="button" text="Redirect to SSI" onClick={redirectToSSI} backgroundColor='#BBA24B' />
 				{loading && <CircularProgress size={24} className="button-progress" />}
 			</div>
 		</Grid>
@@ -240,7 +240,7 @@ export default function Login() {
 								<TitleSmallTextTypography variant="h4">shape</TitleSmallTextTypography>
 							</Grid>
 							<Grid item>
-								<TitleLargeTextTypography>YOUR CITY</TitleLargeTextTypography>
+								<TitleLargeTextTypography>Florence</TitleLargeTextTypography>
 							</Grid>
 							<Grid item>
 								<TitleSmallTextTypography variant="h5">in new ways</TitleSmallTextTypography>

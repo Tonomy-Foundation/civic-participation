@@ -8,7 +8,7 @@ export default function ButtonComponent(
         text,
         type,
         loading = false,
-        backgroundColor = '#227B3C',
+        backgroundColor = '#ce2226',
         color = '#fff',
         loaderColor = '#fff',
         onClick = () => { },

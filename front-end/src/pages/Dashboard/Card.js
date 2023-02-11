@@ -36,14 +36,14 @@ const CardContentDescription = withStyles({
 
 const ReadmoreButton = withStyles({
   root: {
-    backgroundColor: "#1261A3",
+    backgroundColor: "#BBA24B",
     borderRadius: 3,
     border: 0,
     color: "white",
     height: 36,
     maxWidth: 96,
     "&:hover": {
-      backgroundColor: "#1261A3",
+      backgroundColor: "#BBA24B",
     },
   },
   label: {
@@ -61,7 +61,8 @@ const StyledBadge = withStyles((theme) => ({
     padding: "16px 7px",
     fontSize: "22px",
     zIndex: 900,
-    backgroundColor: "#599C6D",
+    backgroundColor: "#ce2226",
+    boxShadow: "0 2px 1px gray"
   },
 }))(Badge);
 
@@ -105,7 +106,7 @@ export default function Card(props) {
   }
 
   if (props.isAddedToVoteBasket) {
-    style.paper.border = "12px solid #599C6D";
+    style.paper.border = "12px solid #ce2226";
   }
 
   const useStyles = makeStyles((theme) => style);

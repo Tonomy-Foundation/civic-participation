@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     "&::placeholder": {
-      color: "#599C6D",
+      color: "#ce2226",
       fontSize: 14,
       opacity: 1,
     },
@@ -74,9 +74,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 200,
   },
   inputLabel: {
-    color: "#599C6D",
+    color: "#ce2226",
     "&.Mui-focused": {
-      color: "#599C6D",
+      color: "#ce2226",
     },
   },
   categoryTitle: {
@@ -149,10 +149,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CategoryRadio = withStyles({
   root: {
-    color: "#599C6D",
+    color: "#ce2226",
     fontSize: "14px",
     "&$checked": {
-      color: "#599C6D",
+      color: "#ce2226",
     },
   },
   checked: {},
@@ -175,19 +175,19 @@ const TitleLock = withStyles({
 const GreenSmallTypographyCreate = withStyles({
   root: {
     fontSize: "15px",
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Typography);
 
 const CreateLock = withStyles({
   root: {
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Lock);
 
 const AddToVoteButton = withStyles({
   root: {
-    backgroundColor: "#1261A3",
+    backgroundColor: "#BBA24B",
     borderRadius: 3,
     border: 0,
     color: "white",
@@ -258,7 +258,7 @@ const GovernmentTitleTypography = withStyles({
 
 const UploadButton = withStyles({
   root: {
-    backgroundColor: "#1261A3",
+    backgroundColor: "#BBA24B",
     borderRadius: 3,
     border: 0,
     color: "white",

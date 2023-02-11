@@ -139,13 +139,13 @@ export default function CreateAccount() {
 	const GreenSmallTypographyCreate = withStyles({
 		root: {
 			fontSize: '15px',
-			color: '#1261A3',
+			color: '#BBA24B',
 		}
 	})(Typography);
 
 	const CreateLock = withStyles({
 		root: {
-			color: '#1261A3'
+			color: '#BBA24B'
 		}
 	})(Lock);
 
@@ -157,7 +157,7 @@ export default function CreateAccount() {
 
 	const LogoCreateUserIcon = withStyles({
 		root: {
-			color: '#1261A3',
+			color: '#BBA24B',
 			fontSize: 30,
 			lineHeight: 0
 		}
@@ -165,7 +165,7 @@ export default function CreateAccount() {
 
 	const LogoCreateTitle = withStyles({
 		root: {
-			color: '#1261A3',
+			color: '#BBA24B',
 			fontSize: '30px',
 			lineHeight: '35px'
 		}
@@ -273,7 +273,7 @@ export default function CreateAccount() {
 					</div>
 				</HtmlTooltip>
 				<Grid item className="create-button">
-					<ButtonComponent loading={loading} type="submit" text="Create" backgroundColor='#1261A3' />
+					<ButtonComponent loading={loading} type="submit" text="Create" backgroundColor='#BBA24B' />
 					{loading && <CircularProgress size={24} className="button-progress" />}
 				</Grid>
 			</Grid>
@@ -283,7 +283,7 @@ export default function CreateAccount() {
 	const createAccountWithSSI = (
 		<Grid container justify="flex-end">
 			<div className="create-button ssi">
-				<ButtonComponent loading={loading} type="button" text="Redirect to SSI" onClick={redirectToSSI} backgroundColor='#1261A3' />
+				<ButtonComponent loading={loading} type="button" text="Redirect to SSI" onClick={redirectToSSI} backgroundColor='#BBA24B' />
 				{loading && <CircularProgress size={24} className="button-progress" />}
 			</div>
 		</Grid>
@@ -324,7 +324,7 @@ export default function CreateAccount() {
 								<TitleSmallTextTypography variant="h4">shape</TitleSmallTextTypography>
 							</Grid>
 							<Grid item>
-								<TitleLargeTextTypography>YOUR CITY</TitleLargeTextTypography>
+								<TitleLargeTextTypography>Florence</TitleLargeTextTypography>
 							</Grid>
 							<Grid item>
 								<TitleSmallTextTypography variant="h5">in new ways</TitleSmallTextTypography>

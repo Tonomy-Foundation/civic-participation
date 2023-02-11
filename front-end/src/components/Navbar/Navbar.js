@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LogoTitle = withStyles({
   root: {
-    color: "#1261A3",
+    color: "#BBA24B",
     fontWeight: 500,
     fontSize: "30px",
   },
@@ -57,7 +57,7 @@ const LogoTitle = withStyles({
 
 const CreateButton = withStyles({
   root: {
-    backgroundColor: "#1261A3",
+    backgroundColor: "#BBA24B",
     borderRadius: 3,
     border: 0,
     color: "white",
@@ -65,7 +65,7 @@ const CreateButton = withStyles({
     padding: "0 20px",
     marginLeft: "50px",
     "&:hover": {
-      backgroundColor: "#1261A3",
+      backgroundColor: "#BBA24B",
     },
   },
   label: {
@@ -78,7 +78,7 @@ const CreateButton = withStyles({
 const DashboardButton = withStyles({
   root: {
     border: 0,
-    color: "#1261A3",
+    color: "#BBA24B",
     height: 36,
     "&:hover": {
       backgroundColor: "#C4C4C4",
@@ -136,7 +136,7 @@ export default function Navbar() {
             history.push("/dashboard");
           }}
         >
-          Civic
+          Florence
         </LogoTitle>
         <div style={{ flexGrow: 1 }} />
 

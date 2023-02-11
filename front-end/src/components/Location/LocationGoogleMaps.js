@@ -5,7 +5,7 @@ import AutoComplete from './Autocomplete';
 import Marker from './Marker';
 import settings from '../../settings';
 
-const defaultLocation = { lat: 52.1135031, lng: 4.2829047 };
+const defaultLocation = { lat: 43.77989420440322, lng: 11.214448000000003 };
 
 class LocationGooglMap extends Component {
     state = {

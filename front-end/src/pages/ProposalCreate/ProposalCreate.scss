@@ -1,10 +1,9 @@
 .header-wrap {
     width: 100%;
-    height: 30vh;
 
     .header-img {
         width: 100%;
-        height: 100%;
+        object-fit: cover;
     }
 
     position: relative;
@@ -52,15 +51,15 @@
     }
 
     .MuiTypography-colorTextSecondary {
-        color: #599C6D;
+        color: #ce2226;
     }
 
     .MuiInput-underline:after {
-        border-bottom: 2px solid #599C6D;
+        border-bottom: 2px solid #ce2226;
     }
 
     .MuiInput-underline::before {
-        border-bottom: 2px solid #599C6D;
+        border-bottom: 2px solid #ce2226;
     }
 
     .create-type-wrape {
@@ -89,7 +88,7 @@
         position: relative;
 
         .MuiTypography-body1 {
-            color: #599C6D;
+            color: #ce2226;
         }
 
         .MuiFormHelperText-root {
@@ -117,11 +116,11 @@
 
     .MuiFormControl-fullWidth {
         label.Mui-focused {
-            color: #599C6D;
+            color: #ce2226;
         }
 
         label.MuiFormLabel-root {
-            color: #599C6D;
+            color: #ce2226;
         }
 
         textarea {
@@ -149,7 +148,7 @@
         width: 283px;
         min-height: 185px;
         border: none;
-        background: rgba(34, 123, 60, 0.75);
+        background: #c7c7c7bf;
         position: relative;
         outline: none;
 
@@ -184,7 +183,7 @@
         }
 
         &:hover {
-            border: 1px solid rgba(34, 123, 60, 0.75);
+            border: 1px solid  #ccccccbf;
         }
 
         .MuiDropzoneArea-textContainer {
@@ -196,13 +195,13 @@
 
             p {
                 font-size: 12px;
-                color: rgba(255, 255, 255, 1);
+                color: #454545;
             }
 
             .MuiDropzoneArea-icon {
                 width: 24px;
                 height: 16px;
-                color: #FFFFFF;
+                color: #454545;
             }
         }
     }
@@ -217,7 +216,7 @@
 
             .search-input {
                 border: none;
-                border-bottom: 1px solid #599C6D;
+                border-bottom: 1px solid #ce2226;
                 width: 290px;
                 margin-bottom: 20px;
                 outline: none;
@@ -225,25 +224,25 @@
             }
 
             ::placeholder {
-                color: #599C6D;
+                color: #ce2226;
                 opacity: 1;
                 /* Firefox */
             }
 
             :-ms-input-placeholder {
                 /* Internet Explorer 10-11 */
-                color: #599C6D;
+                color: #ce2226;
             }
 
             ::-ms-input-placeholder {
                 /* Microsoft Edge */
-                color: #599C6D;
+                color: #ce2226;
             }
 
             .search-icon {
                 position: absolute;
                 left: 297px;
-                color: #599C6D;
+                color: #ce2226;
             }
         }
     }
@@ -287,7 +286,7 @@
 
         .MuiButton-root:hover {
             text-decoration: none;
-            background-color: #1261A3;
+            background-color: #BBA24B;
             margin-left: 10px;
             box-shadow: 0px 1px 2px 1px #b5b5b5;
         }

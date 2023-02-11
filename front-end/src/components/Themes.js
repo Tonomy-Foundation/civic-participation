@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { createMuiTheme, withStyles } from "@material-ui/core/styles";
-import background from './../assets/image/background.png';
+import background from './../assets/image/Mainpic.png';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const theme = createMuiTheme({
@@ -13,14 +13,15 @@ const theme = createMuiTheme({
         ].join(','),
     },
     Button: {
-        backgroundColor: '#227B3C', color: '#fff'
+        backgroundColor: '#ce2226', color: '#fff'
     }
+    
 });
 
 const GreenTextTypography = withStyles({
     root: {
         fontSize: '72px',
-        color: '#227B3C',
+        color: '#ce2226',
     }
 })(Typography);
 
@@ -33,7 +34,7 @@ const ValidatiionString = withStyles({
 
 const TitleSmallTextTypography = withStyles({
     root: {
-        color: '#FAFFFB',
+        color: '#BBA24B',
         fontWeight: 'bold',
         fontSize: '50px'
     }
@@ -41,7 +42,7 @@ const TitleSmallTextTypography = withStyles({
 
 const TitleLargeTextTypography = withStyles({
     root: {
-        color: '#FAFFFB',
+        color: '#ce2226',
         fontWeight: 500,
         fontSize: '72px',
     }

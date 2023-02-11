@@ -53,7 +53,7 @@ const TimelineLock = withStyles({
 
 const UserIcon = withStyles({
     root: {
-        color: '#227B3C',
+        color: '#ce2226',
         fontSize: 45,
         lineHeight: 0
     }

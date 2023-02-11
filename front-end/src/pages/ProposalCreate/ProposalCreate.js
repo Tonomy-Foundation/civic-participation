@@ -13,7 +13,7 @@ import {
   Link
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import background from "../../assets/image/header.png";
+import background from "../../assets/image/Florencebanner.png";
 import { Stars } from "@material-ui/icons";
 import { withStyles } from "@material-ui/core/styles";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     "&::placeholder": {
-      color: "#599C6D",
+      color: "#ce2226",
       fontSize: 14,
       opacity: 1,
     },
@@ -48,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 200,
   },
   inputLabel: {
-    color: "#599C6D",
+    color: "#ce2226",
     "&.Mui-focused": {
-      color: "#599C6D",
+      color: "#ce2226",
     },
   },
   budgetInputStyle: {
@@ -117,7 +117,7 @@ const HeaderCustomizeStar = withStyles({
 
 const TitleCategoryTypography = withStyles({
   root: {
-    color: "#599C6D",
+    color: "#ce2226",
     fontWeight: 500,
     fontSize: "15px",
   },
@@ -125,7 +125,7 @@ const TitleCategoryTypography = withStyles({
 
 const ImageDragTypography = withStyles({
   root: {
-    color: "#599C6D",
+    color: "#ce2226",
     fontWeight: 400,
     fontSize: "12px",
     lineHeight: "14.06px",
@@ -135,10 +135,10 @@ const ImageDragTypography = withStyles({
 
 const CategoryRadio = withStyles({
   root: {
-    color: "#599C6D",
+    color: "#ce2226",
     fontSize: "14px",
     "&$checked": {
-      color: "#599C6D",
+      color: "#ce2226",
     },
   },
   checked: {},
@@ -147,13 +147,13 @@ const CategoryRadio = withStyles({
 const UploadSmallTypographyCreate = withStyles({
   root: {
     fontSize: "15px",
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Typography);
 
 const UploadLock = withStyles({
   root: {
-    color: "#1261A3",
+    color: "#BBA24B",
   },
 })(Lock);
 
@@ -244,7 +244,7 @@ export default function ProposalCreate() {
 
   const UploadButton = withStyles({
     root: {
-      backgroundColor: loading ? "rgba(79,79,79, 0.26)" : "#1261A3",
+      backgroundColor: loading ? "rgba(79,79,79, 0.26)" : "#BBA24B",
       borderRadius: 3,
       border: 0,
       color: "white",
