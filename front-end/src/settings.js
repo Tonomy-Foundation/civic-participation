@@ -10,7 +10,7 @@ let settings = {
         network: "localhost:4000"
     },
     google: {
-        apiKey: "AIzaSyC1qMWpQAqk2Hh6cA-nV4hfCIU34f1gs7Y"
+        apiKey: "AIzaSyBsVD_hzvy9f39CndxIcSLur_G8J9SimVc"
     },
     env: 'development'
 };
