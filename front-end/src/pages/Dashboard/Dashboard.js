@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 385,
     maxHeight: 67,
     minWidth: 330,
-    border: "3px solid #227B3C",
+    border: "3px solid #ce2226",
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   inputLabel: {
     color: "rgba(0, 0, 0, 0.5393)",
     "&.Mui-focused": {
-      color: "#599C6D",
+      color: "#ce2226",
     },
   },
   searchIcon: {
@@ -115,7 +115,15 @@ function Dashboard(props) {
             item.position = parseLocation(item.location);
             return item;
           })
-        : [];
+        : [
+          {title: 'test',description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', photo: "https://images.pexels.com/photos/2565222/pexels-photo-2565222.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          proposalId: 2323,
+          location: "43.779944555022425,11.214490915339217",
+          status: '1',
+          position: parseLocation("43.779944555022425,11.214490915339217"),
+          yesVoteCount: 4
+        }
+        ];
 
       let searchedProposals;
 
