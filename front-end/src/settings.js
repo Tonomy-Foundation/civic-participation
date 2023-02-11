@@ -4,7 +4,7 @@ let settings = {
         blockExplorerUrl: "http://localhost:8080",
     },
     dfuseOptions: {
-        apiKey: "web_abcdef123456789",
+        apiKey: "AIzaSyC1qMWpQAqk2Hh6cA-nV4hfCIU34f1gs7Y",
         authUrl: "null://",
         secure: false,
         network: "localhost:4000"
